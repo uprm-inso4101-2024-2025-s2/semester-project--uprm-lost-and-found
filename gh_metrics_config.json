@@ -5,7 +5,7 @@
   "milestones": {
     "Milestone #1": {
       "startDate": "202501-15",
-      "endDate": "2025-02-09",
+      "endDate": "2025-02-21",
       "projectedGroupGrade": 100.0
     },
     "Milestone #2": {
@@ -19,7 +19,7 @@
       "projectedGroupGrade": 100.0
     }
   },
-  "lectureTopicTaskQuota": 4,
+  "lectureTopicTaskQuota": 0,
   "countOpenIssues": false,
   "sprints": 2,
   "minTasksPerSprint": 1
