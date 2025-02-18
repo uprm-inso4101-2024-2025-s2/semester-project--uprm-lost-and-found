@@ -4,18 +4,18 @@
   "managers": ["GiancarlosRivera"],
   "milestones": {
     "Milestone #1": {
-      "startDate": "2024-01-15",
-      "endDate": "2024-02-09",
+      "startDate": "202501-15",
+      "endDate": "2025-02-09",
       "projectedGroupGrade": 100.0
     },
     "Milestone #2": {
-      "startDate": "2024-02-12",
-      "endDate": "2024-03-08",
+      "startDate": "2025-02-12",
+      "endDate": "2025-03-08",
       "projectedGroupGrade": 100.0
     },
     "Milestone #3": {
-      "startDate": "2024-03-11",
-      "endDate": "2024-04-05",
+      "startDate": "2025-03-11",
+      "endDate": "2025-04-05",
       "projectedGroupGrade": 100.0
     }
   },
