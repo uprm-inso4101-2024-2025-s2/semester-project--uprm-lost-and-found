@@ -1,0 +1,41 @@
+CREATE DATABASE LostAndFound;
+USE LostAndFound
+
+-- Tabla de los users
+CREATE TABLE Users (
+    U_ID INT AUTO_INCREMENT PRIMARY KEY,
+    U_Username VARCHAR(20) NOT NULL,
+    U_Email VARCHAR(30) UNIQUE NOT NULL,
+    U_Password VARCHAR(20) NOT NULL,
+    U_ProfilePhoto LONGBLOB
+);
+
+-- Tabla de Objetos Perdidos
+CREATE TABLE LostItems (
+    L_ID INT AUTO_INCREMENT PRIMARY KEY,
+    L_Description VARCHAR(120) NOT NULL,
+    L_PublishDate DATE NOT NULL,
+    L_Photo LONGBLOB,
+    L_Information VARCHAR(500),
+    U_ID INT NOT NULL,
+    FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE
+);
+
+-- Tabla de Ubicaciones
+CREATE TABLE Location (
+    P_ID INT AUTO_INCREMENT PRIMARY KEY,
+    P_Name VARCHAR(20) NOT NULL,
+    P_Coordinates VARCHAR(30) NOT NULL
+);
+
+-- Tabla de Comentarios
+CREATE TABLE Comments (
+    C_ID INT AUTO_INCREMENT PRIMARY KEY,
+    C_Content VARCHAR(500) NOT NULL,
+    C_PublishDate DATE NOT NULL,
+    U_ID INT NOT NULL,
+    L_ID INT NOT NULL,
+    FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE,
+    FOREIGN KEY (L_ID) REFERENCES LostItems(L_ID) ON DELETE CASCADE
+);
+
