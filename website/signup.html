@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPRM Lost and Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .nav {
+            background-color: black;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            background-color: #00FF00;
+            width: 40%;
+            padding: 30px;
+            border-radius: 10px;
+            position: absolute;
+            left: 10%;
+            top: 150px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-size: 18px;
+            display: block;
+        }
+        textarea {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 20px;
+            resize: none;
+        }
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+        .footer {
+            background-color: black;
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">UPRM Lost and Found</div>
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="#">Make Report</a>
+        <a href="#">Your Cases</a>
+        <a href="#">Our Location</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="container">
+        <h2>Sign up</h2>
+        <div class="form-group">
+            <label>Username:</label>
+            <textarea placeholder="Enter Input"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Email Address:</label>
+            <textarea placeholder="Enter Input"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <textarea placeholder="Enter Input"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            <textarea placeholder="Enter Input"></textarea>
+        </div>
+        <button class="btn">Sign in</button>
+        <br><br>
+        <div>
+            <span>Continue as guest?</span>
+            <button class="btn">Guest</button>
+            <span>or</span>
+            <span>Already have an account?</span>
+            <button class="btn">Login</button>
+        </div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>

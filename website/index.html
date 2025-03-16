@@ -1,30 +1,124 @@
-<!-- COMMENT-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost & Found</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPRM Lost and Found</title>
+  <link rel="stylesheet" href="cssfiles/styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar_container">
-
-            <a href="/" id="navbar_logo">Lost&Found</a>
-            <div class="navbar_toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar_menu">
-                <li class="navbar_item">
-                    <a href="/" class="navbar_links">Home</a>
-                </li>
-                <li class="navbar_item">
-                    <a href="/" class="navbar_links">SecondPage</a>
-                </li>
-            </ul>
+  <div class="wrapper">
+    <header>
+      <h1>UPRM Lost and Found</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Make Report</a></li>
+          <li><a href="#">Your Cases</a></li>
+          <li><a href="#">Our Location</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="login.html">Log In</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <!-- About Us and Our Mission Sections -->
+      <section id="about-mission">
+        <div id="about" class="block">
+          <h2>About Us</h2>
+          <p>Welcome to the UPRM Lost and Found, a student-driven initiative designed to help our campus community reunite with lost items. Created by students for students, our platform provides a simple and efficient way to report lost or found items on campus. Whether you've misplaced your keys, found a forgotten backpack, or are searching for a lost phone, our website is here to help. Together, we can make our campus a more connected and caring place by ensuring lost goods find their way back to their rightful owners.</p>
         </div>
+        <div id="mission" class="block">
+          <h2>Our Mission</h2>
+          <p>At UPRM Lost and Found, our mission is to foster a sense of community and responsibility among students by providing a reliable and user-friendly platform for reporting and claiming lost items. We aim to reduce the stress and inconvenience of losing personal belongings by creating a centralized system where students can easily connect with those who have found their items. Through this initiative, we strive to promote honesty, cooperation, and mutual support within our campus community, ensuring that lost goods are returned to their rightful owners as quickly and efficiently as possible.</p>
+        </div>
+      </section>
+      
+      <!-- Recently Lost Section -->
+      <section id="recently-lost">
+        <h2>Recently Lost</h2>
+        <div class="photo-grid">
+          <!-- Row 1 -->
+          <div class="photo-item">
+            <img src="images/blackBackpack.jpg" alt="Lost Item 1">
+            <p>Black backpack lost near the library.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/blueBottle.jpg" alt="Lost Item 2">
+            <p>Blue water bottle lost in the cafeteria.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/blackSunglasses.png" alt="Lost Item 3">
+            <p>Pair of sunglasses lost at the gym.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/redNotebook.jpg" alt="Lost Item 4">
+            <p>Red notebook lost in the engineering building.</p>
+          </div>
+  
+          <!-- Row 2 -->
+          <div class="photo-item">
+            <img src="images/laptopCharger.jpg" alt="Lost Item 5">
+            <p>Silver laptop charger lost in the computer lab.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/greenUmbrella.jpg" alt="Lost Item 6">
+            <p>Green umbrella lost near the bus stop.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/blackWallet.jpg" alt="Lost Item 7">
+            <p>Black wallet lost in the student center.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/whiteHoodie.jpg" alt="Lost Item 8">
+            <p>White hoodie lost at the basketball court.</p>
+          </div>
+  
+          <!-- Row 3 -->
+          <div class="photo-item">
+            <img src="images/goldWatch.jpg" alt="Lost Item 9">
+            <p>Gold watch lost in the chemistry lab.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/pinkHeadphones.png" alt="Lost Item 10">
+            <p>Pink headphones lost in the library.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/brownJacket.jpg" alt="Lost Item 11">
+            <p>Brown leather jacket lost near the cafeteria.</p>
+          </div>
+          <div class="photo-item">
+            <img src="images/blueCalculator.jpg" alt="Lost Item 12">
+            <p>Blue calculator lost in the math building.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <p>Email: <a href="mailto:lostandfound@upr.edu">lostandfound@upr.edu</a></p>
+          <p>Phone: +1 (787) 123-4567</p>
+        </div>
+        <div class="footer-column">
+          <h3>Follow Us</h3>
+          <p><a href="https://twitter.com/uprmlostfound" target="_blank">Twitter</a></p>
+          <p><a href="https://instagram.com/uprmlostfound" target="_blank">Instagram</a></p>
+        </div>
+        <div class="footer-column">
+          <h3>Location</h3>
+          <p>University of Puerto Rico, Mayagüez</p>
+          <p>Student Center, Room 101</p>
+          <p>Mayagüez, PR 00681</p>
+        </div>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2025 UPRM Lost and Found. All rights reserved.
+      </p>
+    </footer>
+  </div>
 </body>
 </html>
