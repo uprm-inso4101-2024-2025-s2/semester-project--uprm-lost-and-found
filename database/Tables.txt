@@ -39,3 +39,16 @@ CREATE TABLE Comments (
     FOREIGN KEY (L_ID) REFERENCES LostItems(L_ID) ON DELETE CASCADE
 );
 
+--Table de Objetos Encontrados
+CREATE TABLE FoundItems (
+    F_ID INT AUTO_INCREMENT PRIMARY KEY,
+    F_Photo LONGBLOB,
+    F_Description VARCHAR(12) NOT NULL,
+    F_PublishDate VARCHAR(10) NOT NULL,
+    F_PlaceFound LONGBLOB,
+    F_AdditionalDetails VARCHAR(500),
+    U_ID INT NOT NULL,
+    P_ID INT NOT NULL,
+    FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE,
+    FOREIGN KEY (P_ID) REFERENCES Location(P_ID) ON DELETE CASCADE
+);
