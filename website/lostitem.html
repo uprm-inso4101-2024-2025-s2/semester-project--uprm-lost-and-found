@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lost Item Report Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="file"] {
+      padding: 0;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Report Lost Item</h2>
+    <form id="lostItemForm">
+      <label for="itemName">Item Name:</label>
+      <input type="text" id="itemName" name="itemName" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+
+      <label for="location">Last Known Location:</label>
+      <input type="text" id="location" name="location" required />
+
+      <label for="contactName">Your Name:</label>
+      <input type="text" id="contactName" name="contactName" required />
+
+      <label for="contactInfo">Contact Info (email or phone):</label>
+      <input type="text" id="contactInfo" name="contactInfo" required />
+
+      <label for="imageUpload">Upload an Image:</label>
+      <input type="file" id="imageUpload" name="imageUpload" accept="image/*" />
+
+      <label for="comment">Additional Comments:</label>
+      <textarea id="comment" name="comment" rows="3"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('lostItemForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+
+      // Here you could POST the formData to your backend API
+      console.log("Form submitted with:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
+
+      alert("Lost item report submitted successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
