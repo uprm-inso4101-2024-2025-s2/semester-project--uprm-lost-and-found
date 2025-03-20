@@ -25,6 +25,14 @@ header h1 {
   margin: 0;
 }
 
+.headerFile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+}
+
 nav ul {
   list-style: none;
   padding: 0;
@@ -64,6 +72,44 @@ main {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
+}
+
+.reg-buttons {
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 130px; /* Adjust width as needed */
+  height: auto;
+  border: 2px solid #04AA6D;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
+  justify-content: space-between;
+  background: #038c58
+}
+
+.reg-buttons a.btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  transition: background-color 0.3s ease;
+
+}
+
+.reg-buttons a.btn:last-child {
+  border-right: none;
+  border-bottom: none;
+}
+
+.reg-buttons a.btn:hover {
+  background-color: #026f47;
 }
 
 /* Recently Lost Section */
