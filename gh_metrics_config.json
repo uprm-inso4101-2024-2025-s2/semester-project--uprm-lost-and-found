@@ -1,25 +1,25 @@
 {
   "version": "2.0",
-  "projectName": "uprm-lost-and-found",
+  "projectName": "UPRM Lost and Found",
   "managers": ["GiancarlosRivera"],
   "milestones": {
     "Milestone #1": {
-      "startDate": "202501-15",
+      "startDate": "2025-01-27",
       "endDate": "2025-02-21",
       "projectedGroupGrade": 100.0
     },
     "Milestone #2": {
-      "startDate": "2025-02-12",
-      "endDate": "2025-03-08",
+      "startDate": "2025-02-24",
+      "endDate": "2025-03-21",
       "projectedGroupGrade": 100.0
     },
     "Milestone #3": {
-      "startDate": "2025-03-11",
-      "endDate": "2025-04-05",
+      "startDate": "2025-03-24",
+      "endDate": "2025-04-20",
       "projectedGroupGrade": 100.0
     }
   },
-  "lectureTopicTaskQuota": 0,
+  "lectureTopicTaskQuota": 4,
   "countOpenIssues": false,
   "sprints": 2,
   "minTasksPerSprint": 1
