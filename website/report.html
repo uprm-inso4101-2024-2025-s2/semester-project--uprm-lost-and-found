@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report - UPRM Lost and Found</title>
+  <link rel="stylesheet" href="cssfiles/login.css" />
+</head>
+<body>
+  <header>
+    <h1>UPRM Lost and Found</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="report.html" class="active">Report</a></li>
+        <li><a href="login.html">Your Cases</a></li>
+        <li><a href="#">Our Location</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <form id="foundItemForm">
+        <div class="form-group">
+          <label for="photoInput">Upload Photo</label>
+          <input type="file" id="photoInput" accept="image/*" required />
+          <img id="preview" alt="Image Preview" style="display: none;" />
+        </div>
+
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+          <input type="text" id="itemName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location Found</label>
+          <input type="text" id="location" required />
+        </div>
+
+        <div class="form-group">
+          <label for="contactName">Your Name</label>
+          <input type="text" id="contactName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="contactEmail">Your Email</label>
+          <input type="email" id="contactEmail" required />
+        </div>
+
+        <div class="form-group">
+          <label for="comments">Additional Comments</label>
+          <textarea id="comments"></textarea>
+        </div>
+
+        <button type="submit">Submit Report</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>Contact: lostandfound@upr.edu | +1 (787) 123-4567</p>
+    <p>&copy; 2025 UPRM Lost and Found. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('photoInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('preview');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('foundItemForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Form Submitted Successfully!');
+      this.reset();
+      document.getElementById('preview').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
