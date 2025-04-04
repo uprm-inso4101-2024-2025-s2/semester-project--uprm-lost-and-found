@@ -4,7 +4,134 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UPRM Lost and Found - Report Type</title>
+  <!-- Vincula tu hoja de estilo principal -->
   <link rel="stylesheet" href="cssfiles/styles.css">
+  
+  <!-- Puedes colocar estos estilos en tu archivo CSS si lo prefieres -->
+  <style>
+    /* Estilo general de la página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      /* Fondo con degradado */
+      background: linear-gradient(135deg, #c3ec52, #0ba29d);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    /* Encabezado */
+    header {
+      background-color: #fff;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      padding: 0 20px;
+      color: #333;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 20px;
+      display: flex;
+      gap: 15px;
+    }
+    nav ul li {
+      display: inline-block;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #007BFF;
+    }
+
+    /* Contenedor principal de los reportes */
+    .report-type-container {
+      text-align: center;
+      margin: 50px auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .report-type-box p {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .report-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Estilos para los botones */
+    .report-button {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #f7a400;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(247, 164, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .report-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(247, 164, 0, 0.4);
+      background-color: #ff8c00; /* Un tono más oscuro al pasar el mouse */
+    }
+    .report-button:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 15px rgba(247, 164, 0, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #f1f1f1;
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .footer-column h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .footer-column p,
+    .footer-column a {
+      color: #555;
+      text-decoration: none;
+    }
+    .footer-column a:hover {
+      color: #007BFF;
+    }
+    .footer-copyright {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
