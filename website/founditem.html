@@ -273,6 +273,10 @@
         form.reset();
         myDropzone.removeAllFiles(true);
         document.getElementById("uploadedImages").value = "[]";
+
+        setTimeout(() => {
+          window.location.href = 'my_cases.html';
+        }, 1500);
       })
       .catch(error => {
         console.error("Submission error:", error);
