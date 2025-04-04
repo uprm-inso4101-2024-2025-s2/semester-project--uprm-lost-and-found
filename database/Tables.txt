@@ -39,7 +39,7 @@ CREATE TABLE Comments (
     FOREIGN KEY (L_ID) REFERENCES LostItems(L_ID) ON DELETE CASCADE
 );
 
---Table de Objetos Encontrados
+--Tabla de Objetos Encontrados
 CREATE TABLE FoundItems (
     F_ID INT AUTO_INCREMENT PRIMARY KEY,
     F_Photo LONGBLOB,
@@ -52,3 +52,26 @@ CREATE TABLE FoundItems (
     FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE,
     FOREIGN KEY (P_ID) REFERENCES Location(P_ID) ON DELETE CASCADE
 );
+
+-- Tabla de Matches
+CREATE TABLE Matches (
+    M_ID INT AUTO_INCREMENT PRIMARY KEY,
+    M_LostItemIID INT NOT NULL,
+    M_FoundItemID INT NOT NULL,
+    M_MatchScore FLOAT NOT NULL,
+    M_DateMatched TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    M_Status ENUM('pending', 'confirmed', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (M_LostItemID) REFERENCES LostItems(L_ID) ON DELETE CASCADE,
+    FOREIGN KEY (M_FoundItemID) REFERENCES FoundItems(F_ID) ON DELETE CASCADE
+);
+
+
+—-Tabla de Claim Items
+CREATE TABLE ClaimItems(
+	CR_ID INT  AUTO_INCREMENT PRIMARY KEY,
+	F_ID INT NOT NULL,
+	U_ID INT NOT NULL,
+	CR_STATUS ENUM('pending', 'claimed', 'declined') DEFAULT 'pending',
+    FOREIGN KEY (F_ID) REFERENCES FoundItems(F_ID) ON DELETE CASCADE,
+    FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE
+) ;
