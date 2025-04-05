@@ -70,22 +70,28 @@ margin-left: -40px;
 form {
   display: flex;
   flex-direction: column; /* Stack the fields vertically */
-  gap: 8px; /* Add space between fields */
+  gap: 16px; /* Add space between fields (was 8)*/
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-label {
-  font-size: 14px;
-  margin-left: -40px;
+
+label, input, textarea {
+  margin-left: 0;
+  width: 100%;
 }
 
-input[type="text"] {
-  padding: 5px;
-  font-size: 14px;
+input[type="text"],
+input[type="email"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 60%;
-  margin-left: -40px;
+  border-radius: 6px;
 }
+
 
 input[type="file"] {
   padding: 5px;
@@ -94,7 +100,7 @@ input[type="file"] {
   margin-left: -40px;
 }
 
-.forms_container button {
+/*.forms_container button {
   padding: 8px;
   font-size: 14px;
   background-color: #333;
@@ -110,10 +116,21 @@ input[type="file"] {
 
 .forms_container button {
   margin-top: 20px;
+}*/
+.forms_container button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .forms_container button:hover {
-background-color: #555;
+background-color: #218838;
 }
 
 
@@ -173,4 +190,16 @@ margin-top: 10px;
 /* Optional: Adjust bottom padding if needed */
 body {
 padding-bottom: 20px;
+}
+
+
+/*overrides styles only when the screen width is 600px or less (like on phones).*/
+@media (max-width: 600px) {
+  form {
+    padding: 0 10px;
+  }
+
+  .forms_container {
+    padding: 0 10px;
+  }
 }

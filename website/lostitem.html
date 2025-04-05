@@ -51,6 +51,9 @@
         </div>
         
         <form id="foundItemForm" class="space-y-4">
+
+          <!-- ITEM INFO -->
+          <h3 class="text-lg font-semibold mt-6">Item Info</h3>
           <!-- Item Name -->
           <div>
             <label for="itemName" class="block font-semibold">
@@ -77,6 +80,18 @@
             <input type="text" id="foundLocation" name="foundLocation" required placeholder="  e.g. Library, parking lot" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="foundLocationError">Lost location is required.</p>
           </div>
+
+          <!-- Date Lost -->
+          <div>
+            <label for="dateLost" class="block font-semibold">
+              Date Lost <span class="text-red-500">*</span>
+            </label>
+            <input type="date" id="dateLost" name="dateLost" required class="border rounded w-full p-2">
+          </div>
+
+          <!-- CONTACT INFO -->
+          <h3 class="text-lg font-semibold mt-6">Contact Info</h3>
+
 
           <!-- Contact Name -->
           <div>
@@ -107,6 +122,9 @@
             <label for="comments" class="block font-semibold">Additional Comments</label>
             <textarea id="comments" name="comments" placeholder="  Any extra details..." class="border rounded w-full p-2"></textarea>
           </div>
+
+          <!-- IMAGE UPLOAD -->
+          <h3 class="text-lg font-semibold mt-6">Upload Photos</h3>
 
           <!-- Dropzone for Photo Upload -->
           <div>
