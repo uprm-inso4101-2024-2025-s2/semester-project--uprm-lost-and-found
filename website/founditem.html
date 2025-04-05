@@ -80,18 +80,17 @@
           <!-- Contact Name -->
           <div>
             <label for="contactName" class="block font-semibold">
-              Your Name <span class="text-red-500">*</span>
+              Your Name
             </label>
-            <input type="text" id="contactName" name="contactName" required placeholder="  e.g. Jane Doe" class="border rounded w-full p-2">
-            <p class="text-red-500 text-sm hidden" id="contactNameError">Your name is required.</p>
+            <input type="text" id="contactName" name="contactName" placeholder="  e.g. Jane Doe" class="border rounded w-full p-2">
           </div>
 
           <!-- Contact Email -->
           <div>
             <label for="contactEmail" class="block font-semibold">
-              Email <span class="text-red-500">*</span>
+              Email
             </label>
-            <input type="email" id="contactEmail" name="contactEmail" required placeholder="   e.g. jane.doe@email.com" class="border rounded w-full p-2">
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="   e.g. jane.doe@email.com" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="contactEmailError">Valid email is required.</p>
           </div>
 
@@ -208,7 +207,6 @@
       { id: "itemName", errorId: "itemNameError" },
       { id: "description", errorId: "descriptionError" },
       { id: "foundLocation", errorId: "foundLocationError" },
-      { id: "contactName", errorId: "contactNameError" },
       { id: "contactEmail", errorId: "contactEmailError" },
     ];
 
@@ -246,6 +244,14 @@
         }
       });
       if (!allValid) return;
+
+      const contactEmail = document.getElementById("contactEmail").value.trim();
+      const contactPhone = document.getElementById("contactPhone").value.trim();
+
+      if (contactEmail === "" && contactPhone === "") {
+        alert("Please provide at least one method of contact: Email, or Phone Number.");
+        return;
+      }
 
       const formData = {
         itemName: document.getElementById("itemName").value,
