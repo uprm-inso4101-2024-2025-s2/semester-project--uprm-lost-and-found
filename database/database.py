@@ -1,29 +1,40 @@
+import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
+# Load .env variables
+load_dotenv()
+
+# Get connection values from .env
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+
+# MySQL connection URL using mysql-connector
+DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# Create engine
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# ✅ Only import Base after engine is ready to avoid circular import
 from database.models.models import Base
 
-# Temporary SQLite database (change this to PostgreSQL/MySQL later)
-DATABASE_URL = "sqlite:///./test.db"
+# Create tables once
+Base.metadata.create_all(bind=engine)
 
-# Create the database engine
-# engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+# Dependency to use in your routes
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-# Create a session factory
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Base class for models
-# Base = declarative_base()
-
-# Dependency to get database session
-# def get_db():
-#     """Creates a new database session for each request."""
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
-
+# Optional Singleton DB Manager (only if used)
 class Database:
     _instance = None
 
@@ -33,6 +44,4 @@ class Database:
         return cls._instance
 
     def __init__(self):
-        # self.conn_url=conn_url
-        self.engine = create_engine("sqlite://", echo=True)
-        Base.metadata.create_all(self.engine)
+        self.engine = engine
