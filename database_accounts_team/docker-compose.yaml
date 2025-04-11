@@ -7,8 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: lost_and_found_data
       MYSQL_DATABASE: LostAndFondDatabase
-      MYSQL_USER: root
-      MYSQL_PASSWORD: lost_and_found_data
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: lost_and_found_data
     ports:
       - "3306:3306"
     volumes:
