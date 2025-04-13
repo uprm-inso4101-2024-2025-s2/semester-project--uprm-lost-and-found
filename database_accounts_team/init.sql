@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
     U_ID INT AUTO_INCREMENT PRIMARY KEY,
     U_Username VARCHAR(20) NOT NULL,
+    U_Fullname VARCHAR(100) NOT NULL,
     U_Email VARCHAR(30) UNIQUE NOT NULL,
     U_Password VARCHAR(20) NOT NULL,
     U_ProfilePhoto LONGBLOB
@@ -73,7 +74,7 @@ CREATE TABLE Matches (
 );
 
 
-—-Tabla de Claim Items
+-- Tabla de Claim Items
 CREATE TABLE ClaimItems(
 	CR_ID INT  AUTO_INCREMENT PRIMARY KEY,
 	F_ID INT NOT NULL,

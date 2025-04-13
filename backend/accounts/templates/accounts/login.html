@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,63 +11,73 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     header {
       background-color: #333;
       color: #fff;
       padding: 10px 0;
       text-align: center;
     }
+
     header h1 {
       margin: 0;
     }
+
     nav ul {
       list-style: none;
       padding: 0;
     }
+
     nav ul li {
       display: inline;
       margin: 0 15px;
     }
+
     nav ul li a {
       color: #fff;
       text-decoration: none;
     }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #73fb5a;
       padding-bottom: 100px;
     }
+
     .form-container {
       background-color: #fff;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       width: 300px;
       margin: 80px auto;
       margin-top: 50px;
     }
+
     .form-container h2 {
       text-align: center;
       margin-bottom: 1.5rem;
     }
+
     .form-group {
       margin-bottom: 1rem;
     }
+
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
     }
-    input[type="text"],
+
     input[type="email"],
-    input[type="password"],
-    select {
+    input[type="password"] {
       width: 100%;
       padding: 0.5rem;
       border-radius: 6px;
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
+
     button {
       width: 100%;
       padding: 0.75rem;
@@ -76,17 +87,12 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
-      margin-top: 10px;
     }
+
     button:hover {
       background-color: #30d50b;
     }
-    .error-message {
-      color: red;
-      font-size: 0.9rem;
-      text-align: center;
-      margin-top: 5px;
-    }
+
     footer {
       background-color: #333;
       color: #fff;
@@ -97,6 +103,7 @@
       left: 0;
       right: 0;
     }
+
     .footer-columns {
       display: flex;
       justify-content: space-between;
@@ -105,25 +112,31 @@
       margin: 0 auto 10px;
       padding: 0 20px;
     }
+
     .footer-column {
       flex: 1;
       text-align: left;
     }
+
     .footer-column h3 {
       margin-bottom: 8px;
       font-size: 16px;
     }
+
     .footer-column p {
       margin: 4px 0;
       font-size: 13px;
     }
+
     .footer-column a {
       color: #fff;
       text-decoration: none;
     }
+
     .footer-column a:hover {
       text-decoration: underline;
     }
+
     .footer-copyright {
       font-size: 11px;
       color: #ccc;
@@ -131,6 +144,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>UPRM Lost and Found</h1>
@@ -142,61 +156,28 @@
         <li><a href="#">Our Location</a></li>
         <li><a href="#">Contact Us</a></li>
         <li><a href="signup.html">Sign Up</a></li>
+
       </ul>
     </nav>
   </header>
   <div class="form-container">
-    <h2>Create Account</h2>
-    <form id="createAccountForm">
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input 
-          type="text" 
-          id="fullName" 
-          name="fullName" 
-          placeholder="Enter your full name" 
-          required>
-      </div>
+    <h2>Login</h2>
+    <form>
       <div class="form-group">
         <label for="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          placeholder="Enter your email" 
-          required>
-      </div>
-      <div class="form-group">
-        <label for="occupation">Occupation</label>
-        <select id="occupation" name="occupation" required>
-          <option value="" disabled selected>Select your occupation</option>
-          <option value="student">Student</option>
-          <option value="administrative">Administrative</option>
-          <option value="faculty">Faculty</option>
-        </select>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          placeholder="Create a password" 
-          required>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
       </div>
       <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input 
-          type="password" 
-          id="confirmPassword" 
-          name="confirmPassword" 
-          placeholder="Confirm your password" 
-          required>
+        <button type="submit">Login</button>
+        <div style="text-align: center; margin: 10px 0;">or</div>
+        <button type="button" onclick="window.location.href='/accounts/signup/form/'" style="margin-top: 10px;">
+          Create Account
+        </button>
       </div>
-      <div class="error-message" id="errorMessage"></div>
-      <button type="submit">Create Account</button>
-      <div style="text-align: center; margin: 10px 0;">or</div>
-      <button type="button" onclick="window.location.href='signin.html'">Sign In</button>
     </form>
   </div>
   <footer>
@@ -222,19 +203,39 @@
       &copy; 2025 UPRM Lost and Found. All rights reserved.
     </p>
   </footer>
-  <script>
-    document.getElementById('createAccountForm').addEventListener('submit', function(e) {
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      const errorMessage = document.getElementById('errorMessage');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('form');
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-      if (password !== confirmPassword) {
-        e.preventDefault();
-        errorMessage.textContent = 'Passwords do not match!';
-      } else {
-        errorMessage.textContent = '';
-      }
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('/accounts/login/check/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
     });
-  </script>
+
+    const result = await response.json();
+
+    let message = document.getElementById('login-message');
+    if (!message) {
+      message = document.createElement('p');
+      message.id = 'login-message';
+      document.querySelector('.form-container').prepend(message);
+    }
+
+    if (response.ok) {
+      message.style.color = 'green';
+      message.textContent = result.message;
+    } else {
+      message.style.color = 'red';
+      message.textContent = result.error || 'Login failed';
+    }
+  });
+});
+</script>
+
 </body>
-</html>
