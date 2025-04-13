@@ -15,8 +15,13 @@ CREATE TABLE Users (
     U_Fullname VARCHAR(100) NOT NULL,
     U_Email VARCHAR(30) UNIQUE NOT NULL,
     U_Password VARCHAR(20) NOT NULL,
+    U_Occupation VARCHAR(30) NOT NULL,
     U_ProfilePhoto LONGBLOB
+    constraint U_Email
+        unique (U_Email)
 );
+
+
 
 -- Tabla de Objetos Perdidos
 CREATE TABLE LostItems (
