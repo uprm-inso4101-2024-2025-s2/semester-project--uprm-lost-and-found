@@ -28,6 +28,20 @@ def signup_form(request):
 def login_form(request):
     return render(request, 'accounts/login.html')
 
+def homepage(request):
+    return render(request, 'accounts/index.html')
+
+def found_item_page(request):
+    return render(request, 'accounts/founditem.html')
+
+def lost_item_page(request):
+    return render(request, 'accounts/lostitem.html')
+
+def report_type_page(request):
+    return render(request, 'accounts/report-type.html')
+
+
+
 # Log in handler
 @csrf_exempt
 def login_check(request):
