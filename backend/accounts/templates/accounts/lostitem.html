@@ -57,7 +57,7 @@ const myDropzone = new Dropzone("#dropzone", {
   url: "https://api.cloudinary.com/v1_1/dj025epmx/image/upload",
   autoProcessQueue: false,
   addRemoveLinks: true,
-  maxFiles: 3,
+  maxFiles: 1,
   acceptedFiles: "image/*",
   init: function () {
     const dz = this;
@@ -94,5 +94,34 @@ function addUploadedImageURL(url) {
   current.push(url);
   hiddenInput.value = JSON.stringify(current);
 }
+
+const form = document.getElementById("lostItemForm");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = {
+    itemName: document.getElementById("itemName").value,
+    description: document.getElementById("description").value,
+    lostLocation: document.getElementById("lostLocation").value,
+    contactName: document.getElementById("contactName").value,
+    contactEmail: document.getElementById("contactEmail").value,
+    comments: document.getElementById("comments").value,
+    images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
+  };
+
+  fetch("/accounts/lost/submit/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert(data.message || data.error);
+      if (data.message) form.reset();
+    })
+    .catch((error) => {
+      alert("An error occurred: " + error);
+    });
+});
 </script>
 {% endblock %}

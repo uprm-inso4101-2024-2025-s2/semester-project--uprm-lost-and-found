@@ -10,3 +10,16 @@ class User(models.Model):
     U_ProfilePhoto = models.BinaryField(null=True, blank=True)
     class Meta:
         db_table = 'Users'
+
+
+class LostItem(models.Model):
+    L_ID = models.AutoField(primary_key=True)
+    L_Description = models.TextField()
+    L_PublishDate = models.CharField(max_length=10)  # mm/dd/yyyy
+    L_information = models.TextField()
+    U_ID = models.IntegerField()
+    L_Photo = models.BinaryField(null=True, blank=True)  # For LONGBLOB
+
+    class Meta:
+        db_table = 'LostItems'
+        managed = False  # Table already exists in MySQL

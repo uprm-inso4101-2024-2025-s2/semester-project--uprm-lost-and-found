@@ -1,8 +1,10 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from .models import User
+from .models import LostItem, User
+from datetime import datetime
 import json
+import requests
 
 @csrf_exempt
 def signup(request):
@@ -55,3 +57,46 @@ def login_check(request):
             return JsonResponse({'message': f'Welcome, {user.U_FullName}'}, status=200)
         except User.DoesNotExist:
             return JsonResponse({'error': 'Invalid email or password'}, status=401)
+
+@csrf_exempt
+def submit_lost_item(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            description = data.get('description')
+            location = data.get('lostLocation')
+            comments = data.get('comments', '')
+            email = data.get('contactEmail')
+            images = data.get('images', [])
+
+            # Build info
+            l_info = f"{location} - {comments}"
+            date_now = datetime.now().strftime("%Y-%m-%d")
+
+            # Get user ID
+            try:
+                user = User.objects.get(U_Email=email)
+                uid = user.U_ID
+            except User.DoesNotExist:
+                return JsonResponse({'error': 'Email not registered.'}, status=400)
+
+            # Fetch image from Cloudinary
+            image_data = None
+            if images:
+                img_response = requests.get(images[0])
+                if img_response.status_code == 200:
+                    image_data = img_response.content
+
+            # Create LostItem record
+            LostItem.objects.create(
+                L_Description=description,
+                L_PublishDate=date_now,
+                L_information=l_info,
+                U_ID=uid,
+                L_Photo=image_data
+            )
+
+            return JsonResponse({'message': 'Lost item submitted successfully.'}, status=201)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
