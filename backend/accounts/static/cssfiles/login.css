@@ -1,0 +1,84 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(51, 113, 55); /* PANTONE 347 C */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
+
+.form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: rgb(51, 113, 55);
+}
+
+.form-group {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 88%;
+  padding: 8px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: block;
+  font-size: 14px;
+}
+
+button {
+  width: 92%;
+  padding: 8px;
+  background-color: rgb(51, 113, 55); /* PANTONE 347 C */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+#error-message,
+#login-message {
+  color: red;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+}

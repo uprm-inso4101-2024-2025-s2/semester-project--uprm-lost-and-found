@@ -1,247 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 0;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-    }
-    nav ul {
-      list-style: none;
-      padding: 0;
-    }
-    nav ul li {
-      display: inline;
-      margin: 0 15px;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #73fb5a;
-      padding-bottom: 100px;
-    }
-    .form-container {
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      width: 300px;
-      margin: 80px auto;
-      margin-top: 50px;
-    }
-    .form-container h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    select {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #73fb5a;
-      color: rgb(0, 0, 0);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #30d50b;
-    }
-    .error-message {
-      color: red;
-      font-size: 0.9rem;
-      text-align: center;
-      margin-top: 5px;
-    }
-    footer {
-      background-color: #333;
-      color: #fff;
-      padding: 15px 20px;
-      text-align: center;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    .footer-columns {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto 10px;
-      padding: 0 20px;
-    }
-    .footer-column {
-      flex: 1;
-      text-align: left;
-    }
-    .footer-column h3 {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-    .footer-column p {
-      margin: 4px 0;
-      font-size: 13px;
-    }
-    .footer-column a {
-      color: #fff;
-      text-decoration: none;
-    }
-    .footer-column a:hover {
-      text-decoration: underline;
-    }
-    .footer-copyright {
-      font-size: 11px;
-      color: #ccc;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>UPRM Lost and Found</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="founditem.html">Make Report</a></li>
-        <li><a href="#">Your Cases</a></li>
-        <li><a href="#">Our Location</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="signup.html">Sign Up</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="form-container">
-    <h2>Create Account</h2>
-    <form id="createAccountForm">
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          placeholder="Enter your full name"
-          required>
-      </div>
+{% extends 'base.html' %}
+{% load static %}
 
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Choose a username"
-          required>
-      </div>
+{% block title %}Sign Up{% endblock %}
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Enter your email"
-          required>
-      </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'cssfiles/signup.css' %}">
+{% endblock %}
 
-      <div class="form-group">
-        <label for="occupation">Occupation</label>
-        <select id="occupation" name="occupation" required>
-          <option value="" disabled selected>Select your occupation</option>
-          <option value="student">Student</option>
-          <option value="administrative">Administrative</option>
-          <option value="faculty">Faculty</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Create a password"
-          required>
-      </div>
-
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="Confirm your password"
-          required>
-      </div>
-
-      <div class="error-message" id="errorMessage"></div>
-
-      <button type="submit">Create Account</button>
-      <div style="text-align: center; margin: 10px 0;">or</div>
-      <button type="button" onclick="window.location.href='/accounts/login/'">Sign In</button>
-    </form>
-  </div>
-  <footer>
-    <div class="footer-columns">
-      <div class="footer-column">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:lostandfound@upr.edu">lostandfound@upr.edu</a></p>
-        <p>Phone: +1 (787) 123-4567</p>
-      </div>
-      <div class="footer-column">
-        <h3>Follow Us</h3>
-        <p><a href="https://twitter.com/uprmlostfound" target="_blank">Twitter</a></p>
-        <p><a href="https://instagram.com/uprmlostfound" target="_blank">Instagram</a></p>
-      </div>
-      <div class="footer-column">
-        <h3>Location</h3>
-        <p>University of Puerto Rico, Mayagüez</p>
-        <p>Student Center, Room 101</p>
-        <p>Mayagüez, PR 00681</p>
-      </div>
+{% block content %}
+<div class="form-container">
+  <h2>Create Account</h2>
+  <form id="createAccountForm">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" required>
     </div>
-    <p class="footer-copyright">
-      &copy; 2025 UPRM Lost and Found. All rights reserved.
-    </p>
-  </footer>
-  <script>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="occupation">Occupation</label>
+      <select id="occupation" name="occupation" required>
+        <option value="" disabled selected>Select your occupation</option>
+        <option value="student">Student</option>
+        <option value="administrative">Administrative</option>
+        <option value="faculty">Faculty</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <div class="error-message" id="errorMessage"></div>
+    <button type="submit">Create Account</button>
+    <div style="text-align: center; margin: 10px 0;">or</div>
+    <button type="button" onclick="window.location.href='/accounts/login/'">Log In</button>
+  </form>
+</div>
+
+<script>
 document.getElementById('createAccountForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-
   const formData = {
     fullName: document.getElementById('fullName').value,
     username: document.getElementById('username').value,
@@ -250,18 +58,15 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
     password: document.getElementById('password').value,
     confirmPassword: document.getElementById('confirmPassword').value
   };
-
   if (formData.password !== formData.confirmPassword) {
     document.getElementById('errorMessage').textContent = 'Passwords do not match!';
     return;
   }
-
-  const response = await fetch('http://127.0.0.1:8000/accounts/signup/', {
+  const response = await fetch('/accounts/signup/', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
   });
-
   if (response.ok) {
     alert('Signup successful!');
     window.location.href = '/accounts/login/';
@@ -271,6 +76,4 @@ document.getElementById('createAccountForm').addEventListener('submit', async fu
   }
 });
 </script>
-
-</body>
-</html>
+{% endblock %}

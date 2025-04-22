@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}UPRM Lost and Found{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header>
+    <h1>UPRM Lost and Found</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'homepage' %}">Home</a></li>
+        <li><a href="{% url 'found' %}">Report Found Item</a></li>
+        <li><a href="{% url 'lost' %}">Report Lost Item</a></li>
+        <li><a href="{% url 'report_type' %}">Report Type</a></li>
+        <li><a href="{% url 'signup_form' %}">Sign Up</a></li>
+        <li><a href="{% url 'login' %}">Log In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 UPRM Lost and Found. All rights reserved.</p>
+  </footer>
+</body>
+</html>

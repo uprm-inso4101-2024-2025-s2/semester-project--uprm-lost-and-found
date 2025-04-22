@@ -1,0 +1,96 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(51, 113, 55); /* PANTONE 347 C */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  background-color: inherit;
+}
+
+.form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 18px;
+  color: rgb(51, 113, 55);
+}
+
+.form-group {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  display: block;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  width: 95%;
+  padding: 10px;
+  background-color: rgb(51, 113, 55);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.dropzone {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+}

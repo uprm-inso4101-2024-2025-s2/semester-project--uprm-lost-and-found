@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Select Report Type{% endblock %}
+
+{% block content %}
+<main>
+  <section class="bg-gray-100 rounded shadow p-6 max-w-2xl mx-auto my-8 text-center">
+    <h2 class="text-2xl font-bold mb-6">What would you like to report?</h2>
+    <div class="flex flex-col gap-6 items-center">
+      <a href="{% url 'found' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded text-lg shadow">I found an item</a>
+      <a href="{% url 'lost' %}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded text-lg shadow">I lost an item</a>
+    </div>
+  </section>
+</main>
+{% endblock %}
