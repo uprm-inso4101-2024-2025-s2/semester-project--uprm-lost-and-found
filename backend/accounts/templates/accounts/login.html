@@ -30,6 +30,9 @@
   </form>
 </div>
 
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('loginForm');
@@ -57,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (response.ok) {
       message.style.color = 'green';
       message.textContent = result.message;
+      setTimeout(() => {
+        window.location.href = result.redirect || '/';
+      }, 1000);
     } else {
       message.style.color = 'red';
       message.textContent = result.error || 'Login failed';

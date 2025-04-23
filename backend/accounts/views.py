@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import LostItem, User
 from datetime import datetime
 import json
@@ -46,17 +46,27 @@ def report_type_page(request):
 
 # Log in handler
 @csrf_exempt
-def login_check(request):
 
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
-        try:
-            user = User.objects.get(U_Email=email, U_Password=password)
-            return JsonResponse({'message': f'Welcome, {user.U_FullName}'}, status=200)
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'Invalid email or password'}, status=401)
+def login_check(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            email = data.get('email')
+            password = data.get('password')
+
+            try:
+                user = User.objects.get(U_Email=email, U_Password=password)
+                request.session['user_id'] = user.U_ID
+                request.session['user_name'] = user.U_FullName
+
+                # ✅ Include redirect URL
+                return JsonResponse({
+                    'message': f'Welcome, {user.U_FullName}',
+                    'redirect': '/'
+                }, status=200)
+
+            except User.DoesNotExist:
+                return JsonResponse({'error': 'Invalid email or password'}, status=401)
+
 
 @csrf_exempt
 def submit_lost_item(request):
@@ -100,3 +110,7 @@ def submit_lost_item(request):
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+
+def logout_view(request):
+    request.session.flush()  # Clear all session data
+    return redirect('login')
