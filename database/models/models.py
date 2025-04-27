@@ -43,7 +43,8 @@ class LostItem(Base):
     __tablename__="LostItems"
     id: Mapped[int] = mapped_column("L_ID",primary_key=True)
     description: Mapped[str] = mapped_column("L_Description",String(120), nullable = False)
-
+    #Adding Lost item name to match Frontend
+    name : Mapped[str] = mapped_column("L_name", String(120), nullable = False)
     # change string to a date Object
     published_date:Mapped[date]= mapped_column("L_PublishDate",Date, nullable = False)
     photo: Mapped[bytes] = mapped_column("L_Photo",LargeBinary)
@@ -54,7 +55,7 @@ class LostItem(Base):
 class FoundItems(Base):
     __tablename__ = "FoundItems"
     id = Column("F_ID", Integer,primary_key = True, autoincrement = True  )
-    photo= Column("F_Photo", LargeBinary, nullable= True )
+    photo= Column("F_Photo", String(500), nullable= True )
     description = Column("F_Description",String(120), nullable = False )
     published_date = Column("F_PublishDate", Date, nullable= False)
     place_found = Column("F_PlaceFound",String(20), nullable= True)

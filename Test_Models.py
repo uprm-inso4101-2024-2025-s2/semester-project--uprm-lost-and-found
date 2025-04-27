@@ -1,3 +1,6 @@
+
+#This file is created with the purpose of testing  each of the models in the the models.py file.
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models.models import Base, User, LostItem, Location, ClaimItems, FoundItems, Matches, Comments
@@ -7,11 +10,12 @@ from datetime import date
 import pytest
 import os
 
-# to test the files locally
+# to test the files locally test.db
 DATA_URL = "sqlite:///./test.db"
 engine = create_engine(DATA_URL, echo = True)
 SessionLocal = sessionmaker(autocommit = False, autoflush = False, bind = engine)
 
+#To create the Pytest functions(2) I search for internet help
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
     if os.path.exists("./test.db"):
@@ -21,7 +25,7 @@ def setup_database():
     if os.path.exists("./test.db"):
         os.remove("./test.db")
 
-#Base.metadata.create_all(bind=engine)
+
 @pytest.fixture
 def test_models():
     db = SessionLocal()
@@ -54,11 +58,12 @@ def  test_LostItem(test_models):
     db.commit()
     db.refresh(new_user)
 
-    lost = LostItem(description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
+    lost = LostItem(name="Blue iphone", description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
     db.add(lost)
     db.commit()
     db.refresh(lost)
 
+    assert lost.name == "Blue iphone"
     assert lost.description == "Lost Phone"
     assert lost.published_date == date(2025, 4, 24)
     assert lost.photo == b"photo"
@@ -78,12 +83,13 @@ def test_FoundItems(test_models):
     db.commit()
     db.refresh(location)
 
-    found = FoundItems(photo = b"photo", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
+    
+    found = FoundItems(photo ="test_image.jpg", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
     db.add(found)
     db.commit()
     db.refresh(found)
 
-    assert found.photo == b"photo"
+    assert found.photo == "test_image.jpg" 
     assert found.description == "Found $20"
     assert found.published_date == date(2025, 4, 24)
     assert found.place_found == "S- 113"
@@ -118,7 +124,12 @@ def test_ClaimItems(test_models):
      db.commit()
      db.refresh(location)
 
-     found = FoundItems(photo = b"photo", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
+     
+
+     
+     found = FoundItems(photo = "test_image.jpg", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
+
+     #found = FoundItems(photo = b"photo", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
      db.add(found)
      db.commit()
      db.refresh(found)
@@ -140,7 +151,7 @@ def test_Comments(test_models):
      db.commit()
      db.refresh(new_user)
 
-     lost = LostItem(description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
+     lost = LostItem(name="Blue iphone",description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
      db.add(lost)
      db.commit()
      db.refresh(lost)
@@ -163,7 +174,7 @@ def test_matches(test_models):
      db.commit()
      db.refresh(new_user)
 
-     lost = LostItem(description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
+     lost = LostItem(name="Blue iphone",description= "Lost Phone", published_date= date(2025, 4, 24), photo = b"photo", information = "Iphone 5 Lost in S 113", u_id =new_user.id)
      db.add(lost)
      db.commit()
      db.refresh(lost)
@@ -173,7 +184,11 @@ def test_matches(test_models):
      db.commit()
      db.refresh(location)
 
-     found = FoundItems(photo = b"photo", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
+     
+     
+
+    
+     found = FoundItems(photo = "test_image.jpg", description = "Found $20", published_date=date(2025, 4, 24), place_found="S- 113", additional_details= "It was on the last row of seats",u_id=new_user.id, p_id=location.id) 
      db.add(found)
      db.commit()
      db.refresh(found)
