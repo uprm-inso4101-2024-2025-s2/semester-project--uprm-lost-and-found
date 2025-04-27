@@ -6,13 +6,15 @@ CREATE TABLE Users (
     U_ID INT AUTO_INCREMENT PRIMARY KEY,
     U_Username VARCHAR(20) NOT NULL,
     U_Email VARCHAR(30) UNIQUE NOT NULL,
-    U_Password VARCHAR(20) NOT NULL,
-    U_ProfilePhoto LONGBLOB
+    U_Password VARCHAR(500) NOT NULL,
+    U_ProfilePhoto LONGBLOB,
+    U_Role VARCHAR(20)
 );
 
 -- Tabla de Objetos Perdidos
 CREATE TABLE LostItems (
     L_ID INT AUTO_INCREMENT PRIMARY KEY,
+    L_name VARCHAR(120) NOT NULL,
     L_Description VARCHAR(120) NOT NULL,
     L_PublishDate DATE NOT NULL,
     L_Photo LONGBLOB,
@@ -42,10 +44,10 @@ CREATE TABLE Comments (
 --Tabla de Objetos Encontrados
 CREATE TABLE FoundItems (
     F_ID INT AUTO_INCREMENT PRIMARY KEY,
-    F_Photo LONGBLOB,
-    F_Description VARCHAR(12) NOT NULL,
-    F_PublishDate VARCHAR(10) NOT NULL,
-    F_PlaceFound LONGBLOB,
+    F_Photo VARCHAR(500),
+    F_Description VARCHAR(120) NOT NULL,
+    F_PublishDate DATE NOT NULL,
+    F_PlaceFound VARCHAR(20),
     F_AdditionalDetails VARCHAR(500),
     U_ID INT NOT NULL,
     P_ID INT NOT NULL,
@@ -56,7 +58,7 @@ CREATE TABLE FoundItems (
 -- Tabla de Matches
 CREATE TABLE Matches (
     M_ID INT AUTO_INCREMENT PRIMARY KEY,
-    M_LostItemIID INT NOT NULL,
+    M_LostItemID INT NOT NULL,
     M_FoundItemID INT NOT NULL,
     M_MatchScore FLOAT NOT NULL,
     M_DateMatched TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
