@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'lostandfound.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LostAndFondDatabase',
+        'NAME': 'LostAndFoundDatabase',
         'USER': 'root',
         'PASSWORD': 'lost_and_found_data',
         'HOST': '127.0.0.1',
