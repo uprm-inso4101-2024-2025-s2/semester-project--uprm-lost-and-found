@@ -8,17 +8,17 @@ DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS LostItems;
 DROP TABLE IF EXISTS Users;
 
+USE LostAndFoundDatabase
+
 -- Tabla de los users
 CREATE TABLE Users (
     U_ID INT AUTO_INCREMENT PRIMARY KEY,
     U_Username VARCHAR(20) NOT NULL,
     U_Fullname VARCHAR(100) NOT NULL,
-    U_Email VARCHAR(30) UNIQUE NOT NULL,
+    U_Email VARCHAR(30) NOT NULL,
     U_Password VARCHAR(20) NOT NULL,
     U_Occupation VARCHAR(30) NOT NULL,
     U_ProfilePhoto LONGBLOB
-    constraint U_Email
-        unique (U_Email)
 );
 
 
@@ -52,7 +52,7 @@ CREATE TABLE Comments (
     FOREIGN KEY (L_ID) REFERENCES LostItems(L_ID) ON DELETE CASCADE
 );
 
---Tabla de Objetos Encontrados
+-- Tabla de Objetos Encontrados
 CREATE TABLE FoundItems (
     F_ID INT AUTO_INCREMENT PRIMARY KEY,
     F_Photo LONGBLOB,
@@ -87,4 +87,4 @@ CREATE TABLE ClaimItems(
 	CR_STATUS ENUM('pending', 'claimed', 'declined') DEFAULT 'pending',
     FOREIGN KEY (F_ID) REFERENCES FoundItems(F_ID) ON DELETE CASCADE,
     FOREIGN KEY (U_ID) REFERENCES Users(U_ID) ON DELETE CASCADE
-) ;
+);

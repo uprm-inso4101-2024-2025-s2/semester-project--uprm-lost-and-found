@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: lost_and_found_data
-      MYSQL_DATABASE: LostAndFondDatabase
+      MYSQL_DATABASE: LostAndFoundDatabase
       # MYSQL_USER: root
       # MYSQL_PASSWORD: lost_and_found_data
     ports:
