@@ -23,3 +23,17 @@ class LostItem(models.Model):
     class Meta:
         db_table = 'LostItems'
         managed = False  # Table already exists in MySQL
+
+
+class FoundItem(models.Model):
+    F_ID = models.AutoField(primary_key=True)
+    F_Description = models.TextField()
+    F_PublishDate = models.CharField(max_length=10)
+    F_PlaceFound = models.CharField(max_length=100)
+    F_AdditionalDetails = models.TextField(null=True, blank=True)
+    F_Photo = models.BinaryField(null=True, blank=True)
+    U_ID = models.IntegerField()
+
+    class Meta:
+        db_table = 'FoundItems'
+        managed = False  # Table already exists in MySQL

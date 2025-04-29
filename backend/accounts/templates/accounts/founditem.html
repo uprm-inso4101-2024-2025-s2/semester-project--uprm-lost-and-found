@@ -94,5 +94,33 @@ function addUploadedImageURL(url) {
   current.push(url);
   hiddenInput.value = JSON.stringify(current);
 }
+const form = document.getElementById("foundItemForm");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = {
+    itemName: document.getElementById("itemName").value,
+    description: document.getElementById("description").value,
+    lostLocation: document.getElementById("foundLocation").value,
+    contactName: document.getElementById("contactName").value,
+    contactEmail: document.getElementById("contactEmail").value,
+    comments: document.getElementById("comments").value,
+    images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
+  };
+
+  fetch("/accounts/found/submit/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert(data.message || data.error);
+      if (data.message) form.reset();
+    })
+    .catch((error) => {
+      alert("An error occurred: " + error);
+    });
+});
 </script>
 {% endblock %}

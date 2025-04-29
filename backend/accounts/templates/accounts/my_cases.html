@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}My Cases{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <h2>My Reported Items</h2>
+  {% if lost_items %}
+    <ul>
+      {% for item in lost_items %}
+        <li>
+          <strong>Description:</strong> {{ item.L_Description }}<br>
+          <strong>Date:</strong> {{ item.L_PublishDate }}<br>
+          <strong>Info:</strong> {{ item.L_information }}
+
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't reported any lost items yet.</p>
+  {% endif %}
+{% endblock %}
