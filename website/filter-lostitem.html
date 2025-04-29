@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search by Filter</title>
+  <link rel="stylesheet" href="cssfiles/styles.css" />
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <h1>UPRM Lost and Found</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="report-type.html">Make Report</a></li>
+        <li><a href="my_cases.html">Your Cases</a></li>
+        <li><a href="#">Our Location</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="filters-section">
+        <h2>Filter Lost Items</h2>
+        <div class="filter-block">
+          <form onsubmit="event.preventDefault(); filterItems();">
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <input type="text" id="category" placeholder="e.g. Wallet, Umbrella" />
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <select id="location">
+                  <option value="">Select a location</option>
+                  <option value="library">Library</option>
+                  <option value="cafeteria">Cafeteria</option>
+                  <option value="gym">Gym</option>
+                  <option value="engineering building">Engineering Building</option>
+                  <option value="computer lab">Computer Lab</option>
+                  <option value="bus stop">Bus Stop</option>
+                  <option value="student center">Student Center</option>
+                  <option value="basketball court">Basketball Court</option>
+                  <option value="chemistry lab">Chemistry Lab</option>
+                  <option value="math building">Math Building</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="month">Month:</label>
+                <select id="month" name="month">
+                    <option value="">Select a month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <button type="submit" class="apply-button">Apply Filters</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="recently-lost">
+        <h2>Recently Lost</h2>
+        <div class="photo-grid">
+          <div class="photo-item" data-category="Backpack" data-month="03">
+            <img src="images/blackBackpack.jpg" alt="Lost Item 1">
+            <p>Black backpack lost near the library.</p>
+          </div>
+          <div class="photo-item" data-category="Bottle" data-month="06">
+            <img src="images/blueBottle.jpg" alt="Lost Item 2">
+            <p>Blue water bottle lost in the cafeteria.</p>
+          </div>
+          <div class="photo-item" data-category="glasses" data-month="09">
+            <img src="images/blackSunglasses.png" alt="Lost Item 3">
+            <p>Pair of sunglasses lost at the gym.</p>
+          </div>
+          <div class="photo-item" data-category="Notebook" data-month="02">
+            <img src="images/redNotebook.jpg" alt="Lost Item 4">
+            <p>Red notebook lost in the engineering building.</p>
+          </div>
+          <div class="photo-item" data-category="Charger" data-month="12">
+            <img src="images/laptopCharger.jpg" alt="Lost Item 5">
+            <p>Silver laptop charger lost in the computer lab.</p>
+          </div>
+          <div class="photo-item" data-category="Umbrella" data-month="05">
+            <img src="images/greenUmbrella.jpg" alt="Lost Item 6">
+            <p>Green umbrella lost near the bus stop.</p>
+          </div>
+          <div class="photo-item" data-category="Wallet" data-month="07">
+            <img src="images/blackWallet.jpg" alt="Lost Item 7">
+            <p>Black wallet lost in the student center.</p>
+          </div>
+          <div class="photo-item" data-category="Hoodie" data-month="10">
+            <img src="images/whiteHoodie.jpg" alt="Lost Item 8">
+            <p>White hoodie lost at the basketball court.</p>
+          </div>
+          <div class="photo-item" data-category="Watch" data-month="01">
+            <img src="images/goldWatch.jpg" alt="Lost Item 9">
+            <p>Gold watch lost in the chemistry lab.</p>
+          </div>
+          <div class="photo-item" data-category="Headphones" data-month="08">
+            <img src="images/pinkHeadphones.png" alt="Lost Item 10">
+            <p>Pink headphones lost in the library.</p>
+          </div>
+          <div class="photo-item" data-category="Jacket" data-month="04">
+            <img src="images/brownJacket.jpg" alt="Lost Item 11">
+            <p>Brown leather jacket lost near the cafeteria.</p>
+          </div>
+          <div class="photo-item" data-category="Calculator" data-month="11">
+            <img src="images/blueCalculator.jpg" alt="Lost Item 12">
+            <p>Blue calculator lost in the math building.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  <footer>
+    <p class="footer-copyright">
+      &copy; Lost &amp; Found UPRM
+    </p>
+  </footer>
+</div>
+
+</body>
+</html>
