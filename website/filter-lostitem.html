@@ -132,6 +132,25 @@
     </p>
   </footer>
 </div>
+<script>
+  function filterItems() {
+    const categoryValue = document.getElementById("category").value.trim().toLowerCase();
+    const locationValue = document.getElementById("location").value.trim().toLowerCase();
+    const monthValue = document.getElementById("month").value.trim();
+    const items = document.querySelectorAll(".photo-item");
 
+    items.forEach(item => {
+      const category = item.getAttribute("data-category").toLowerCase();
+      const description = item.querySelector("p").textContent.toLowerCase();
+      const itemMonth = item.getAttribute("data-month");
+
+      const categoryMatch = !categoryValue || category.includes(categoryValue);
+      const locationMatch = !locationValue || description.includes(locationValue);
+      const monthMatch = !monthValue || itemMonth === monthValue;
+
+      item.style.display = categoryMatch && locationMatch && monthMatch ? "flex" : "none";
+    });
+  }
+</script>
 </body>
 </html>
