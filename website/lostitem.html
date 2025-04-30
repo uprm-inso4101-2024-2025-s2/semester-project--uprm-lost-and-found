@@ -118,7 +118,7 @@
 
           <!-- Submit Button -->
           <div>
-            <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">Submit</button>
+            <button id="submitBtn" type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">Submit</button>
           </div>
         </form>
       </section>
@@ -202,7 +202,7 @@
     }
 
     /***************************************
-     * Real-Time Validation
+     * Real-Time Validation Configuration
      ***************************************/
     const form = document.getElementById("foundItemForm");
     const requiredFields = [
@@ -212,20 +212,111 @@
       { id: "contactName", errorId: "contactNameError" },
       { id: "contactEmail", errorId: "contactEmailError" },
     ];
+/***************************************
+* Real-Time Required Fields Check
+***************************************/
 
-    requiredFields.forEach(field => {
-      const inputEl = document.getElementById(field.id);
-      const errorEl = document.getElementById(field.errorId);
-      inputEl.addEventListener("input", () => {
-        if (!inputEl.checkValidity()) {
-          inputEl.classList.add("border-red-500");
-          errorEl.classList.remove("hidden");
-        } else {
-          inputEl.classList.remove("border-red-500");
-          errorEl.classList.add("hidden");
-        }
-      });
-    });
+// Submit button element
+const submitBtn = document.getElementById("submitBtn");
+
+// Function that validates if the name contains only letters and spaces
+function isNameValid(name) {
+  return /^[A-Za-z\s]+$/.test(name.trim());
+}
+
+// Function that checks if all required fields are filled out and valid
+function checkFormCompletion() {
+  const isFormValid = requiredFields.every(field => {
+    const inputEl = document.getElementById(field.id);
+    return inputEl.checkValidity();
+  });
+
+  // Enable or disable the submit button based on form validity
+  submitBtn.disabled = !isFormValid;
+  submitBtn.classList.toggle("opacity-50", !isFormValid);
+  submitBtn.classList.toggle("cursor-not-allowed", !isFormValid);
+}
+
+// Real-time validation for all required fields
+requiredFields.forEach(field => {
+  const inputEl = document.getElementById(field.id);
+  const errorEl = document.getElementById(field.errorId);
+
+  inputEl.addEventListener("input", () => {
+    let isValid = inputEl.checkValidity();
+
+    // Special validation for contactName
+    if (field.id === "contactName") {
+      const nameValue = inputEl.value.trim();
+      if (nameValue === "") {
+        errorEl.textContent = "Your name is required.";
+        isValid = false;
+      } else if (!isNameValid(nameValue)) {
+        errorEl.textContent = "Only letters and spaces allowed.";
+        isValid = false;
+      } else {
+        errorEl.textContent = "";
+        isValid = true;
+      }
+    }
+
+    // Show or hide error based on validity
+    if (!isValid) {
+      inputEl.classList.add("border-red-500");
+      errorEl.classList.remove("hidden");
+    } else {
+      inputEl.classList.remove("border-red-500");
+      errorEl.classList.add("hidden");
+    }
+
+    checkFormCompletion();
+  });
+});
+
+// Initial check on page load (in case of autofill)
+window.addEventListener("DOMContentLoaded", checkFormCompletion);
+
+/***************************************
+* Hover: Highlight Missing Fields
+***************************************/
+
+// Highlight missing fields when hovering over the submit button
+submitBtn.addEventListener("mouseenter", () => {
+  let isFormValid = true;
+
+  requiredFields.forEach(field => {
+    const inputEl = document.getElementById(field.id);
+    const errorEl = document.getElementById(field.errorId);
+
+    let isValid = inputEl.checkValidity();
+
+    // Special case for contactName
+    if (field.id === "contactName") {
+      const nameValue = inputEl.value.trim();
+      if (nameValue === "") {
+        errorEl.textContent = "Your name is required.";
+        isValid = false;
+      } else if (!isNameValid(nameValue)) {
+        errorEl.textContent = "Only letters and spaces allowed.";
+        isValid = false;
+      } else {
+        errorEl.textContent = "";
+        isValid = true;
+      }
+    }
+
+    if (!isValid) {
+      inputEl.classList.add("border-red-500");
+      errorEl.classList.remove("hidden");
+      isFormValid = false;
+    } else {
+      inputEl.classList.remove("border-red-500");
+      errorEl.classList.add("hidden");
+    }
+  });
+
+  submitBtn.classList.toggle("cursor-not-allowed", !isFormValid);
+});
 
     /***************************************
      * AJAX Form Submission
@@ -259,7 +350,7 @@
         images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
       };
 
-      fetch("http://localhost:3000/submit-form", {  // Replace with your actual server endpoint
+      fetch("http://127.0.0.1:5500/website/lostitem.html", {  // Replace with your actual server endpoint
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
