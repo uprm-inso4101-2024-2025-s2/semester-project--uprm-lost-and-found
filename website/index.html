@@ -38,60 +38,8 @@
       <!-- Recently Lost Section -->
       <section id="recently-lost">
         <h2>Recently Lost</h2>
-        <div class="photo-grid">
-          <!-- Row 1 -->
-          <div class="photo-item">
-            <img src="images/blackBackpack.jpg" alt="Lost Item 1">
-            <p>Black backpack lost near the library.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/blueBottle.jpg" alt="Lost Item 2">
-            <p>Blue water bottle lost in the cafeteria.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/blackSunglasses.png" alt="Lost Item 3">
-            <p>Pair of sunglasses lost at the gym.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/redNotebook.jpg" alt="Lost Item 4">
-            <p>Red notebook lost in the engineering building.</p>
-          </div>
-  
-          <!-- Row 2 -->
-          <div class="photo-item">
-            <img src="images/laptopCharger.jpg" alt="Lost Item 5">
-            <p>Silver laptop charger lost in the computer lab.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/greenUmbrella.jpg" alt="Lost Item 6">
-            <p>Green umbrella lost near the bus stop.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/blackWallet.jpg" alt="Lost Item 7">
-            <p>Black wallet lost in the student center.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/whiteHoodie.jpg" alt="Lost Item 8">
-            <p>White hoodie lost at the basketball court.</p>
-          </div>
-  
-          <!-- Row 3 -->
-          <div class="photo-item">
-            <img src="images/goldWatch.jpg" alt="Lost Item 9">
-            <p>Gold watch lost in the chemistry lab.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/pinkHeadphones.png" alt="Lost Item 10">
-            <p>Pink headphones lost in the library.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/brownJacket.jpg" alt="Lost Item 11">
-            <p>Brown leather jacket lost near the cafeteria.</p>
-          </div>
-          <div class="photo-item">
-            <img src="images/blueCalculator.jpg" alt="Lost Item 12">
-            <p>Blue calculator lost in the math building.</p>
-          </div>
+        <div class="photo-grid" id="lost-items-container">
+          <!-- Dynamic content will be inserted here -->
         </div>
       </section>
     </main>
@@ -120,5 +68,38 @@
       </p>
     </footer>
   </div>
+
+  <!-- Script to fetch and display lost items -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      fetch("http://localhost:8000/api/lost-items/")
+        .then(res => res.json())
+        .then(items => {
+          const container = document.getElementById("lost-items-container");
+          container.innerHTML = ""; // Clear fallback content
+
+          items.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "photo-item";
+
+            const image = document.createElement("img");
+            image.src = item.photo_urls[0] || "images/placeholder.jpg";
+            image.alt = "Lost Item";
+
+            const desc = document.createElement("p");
+            desc.textContent = item.description;
+
+            div.appendChild(image);
+            div.appendChild(desc);
+            container.appendChild(div);
+          });
+        })
+        .catch(err => {
+          console.error("Error fetching lost items:", err);
+          const container = document.getElementById("lost-items-container");
+          container.innerHTML = "<p style='color:red;'>Error loading lost items. Please try again later.</p>";
+        });
+    });
+  </script>
 </body>
 </html>

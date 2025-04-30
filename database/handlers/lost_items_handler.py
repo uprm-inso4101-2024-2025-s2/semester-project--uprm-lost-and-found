@@ -59,7 +59,7 @@ class LostItemsHandler:
             return item
 
 # ────────────────────────────────────────
-# API Endpoint: Submit Lost Item
+# API Endpoint: Submit Lost Item (POST) – Issue #153
 # ────────────────────────────────────────
 @router.post("/lost-items/")
 def submit_lost_item(data: dict, db: Session = Depends(get_db)):
@@ -80,5 +80,26 @@ def submit_lost_item(data: dict, db: Session = Depends(get_db)):
         db.add(item)
         db.commit()
         return {"message": "Lost item submitted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ────────────────────────────────────────
+# API Endpoint: Get Lost Items (GET) – Issue #154
+# ────────────────────────────────────────
+@router.get("/lost-items/")
+def get_lost_items(db: Session = Depends(get_db)):
+    try:
+        items = db.query(LostItem).all()
+        return [
+            {
+                "id": item.id,
+                "description": item.l_description,
+                "publish_date": item.l_publishdate,
+                "photo_urls": item.l_photo.split(",") if item.l_photo else [],
+                "information": item.l_information
+            }
+            for item in items
+        ]
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
