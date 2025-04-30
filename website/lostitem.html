@@ -259,7 +259,7 @@
         images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
       };
 
-      fetch("http://localhost:3000/submit-form", {  // Replace with your actual server endpoint
+      fetch("http://localhost:8000/api/lost-items/", {  // Replace with your actual server endpoint
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
