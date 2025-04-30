@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Found Item - UPRM Lost and Found</title>
-  <!-- Use your existing stylesheet -->
-  <link rel="stylesheet" href="cssfiles/styles.css">
-  <!-- Tailwind CSS (for modern, responsive form styling) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Dropzone CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="cssfiles/styles.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    /* Custom styling for Dropzone preview images */
     .dz-image img {
       width: 100px;
       height: 100px;
@@ -21,10 +22,10 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- Header (Same as index.html) -->
+    <!-- Header -->
     <header>
       <h1>UPRM Lost and Found</h1>
-      <nav>
+      <nav aria-label="Main navigation">
         <ul>
           <li><a href="founditem.html">Make Report</a></li>
           <li><a href="my_cases.html">Your Cases</a></li>
@@ -35,96 +36,85 @@
         </ul>
       </nav>
     </header>
-    
+
     <!-- Main Content -->
     <main>
-      <!-- Advanced Found Item Form Section -->
       <section class="bg-gray-300 rounded shadow p-6 max-w-2xl mx-auto my-4">
         <h2 class="text-xl font-bold mb-4">Report a Lost Item</h2>
-        
-        <!-- Success & Error Alerts -->
-        <div id="alertSuccess" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 hidden">
+
+        <!-- Alerts -->
+        <div id="alertSuccess" role="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 hidden">
           Your report has been submitted successfully!
         </div>
-        <div id="alertError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 hidden">
+        <div id="alertError" role="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 hidden">
           Oops! Something went wrong. Please try again.
         </div>
-        
+
+        <!-- Form -->
         <form id="foundItemForm" class="space-y-4">
           <!-- Item Name -->
           <div>
-            <label for="itemName" class="block font-semibold">
-              Item Name <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="itemName" name="itemName" required placeholder="  e.g. Blue Backpack" class="border rounded w-full p-2">
+            <label for="itemName" class="block font-semibold">Item Name <span class="text-red-500">*</span></label>
+            <input type="text" id="itemName" name="itemName" required placeholder="e.g. Blue Backpack" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="itemNameError">Item name is required.</p>
           </div>
 
           <!-- Description -->
           <div>
-            <label for="description" class="block font-semibold">
-              Description <span class="text-red-500">*</span>
-            </label>
-            <textarea id="description" name="description" required placeholder="   Describe the item in detail..." class="border rounded w-full p-2"></textarea>
+            <label for="description" class="block font-semibold">Description <span class="text-red-500">*</span></label>
+            <textarea id="description" name="description" required placeholder="Describe the item in detail..." class="border rounded w-full p-2"></textarea>
             <p class="text-red-500 text-sm hidden" id="descriptionError">Description is required.</p>
           </div>
 
           <!-- Found Location -->
           <div>
-            <label for="foundLocation" class="block font-semibold">
-              Where did you lose it? <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="foundLocation" name="foundLocation" required placeholder="  e.g. Library, parking lot" class="border rounded w-full p-2">
+            <label for="foundLocation" class="block font-semibold">Where did you lose it? <span class="text-red-500">*</span></label>
+            <input type="text" id="foundLocation" name="foundLocation" required placeholder="e.g. Library, parking lot" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="foundLocationError">Lost location is required.</p>
           </div>
 
           <!-- Contact Name -->
           <div>
-            <label for="contactName" class="block font-semibold">
-              Your Name <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="contactName" name="contactName" required placeholder="  e.g. Jane Doe" class="border rounded w-full p-2">
+            <label for="contactName" class="block font-semibold">Your Name <span class="text-red-500">*</span></label>
+            <input type="text" id="contactName" name="contactName" required placeholder="e.g. Jane Doe" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="contactNameError">Your name is required.</p>
           </div>
 
           <!-- Contact Email -->
           <div>
-            <label for="contactEmail" class="block font-semibold">
-              Email <span class="text-red-500">*</span>
-            </label>
-            <input type="email" id="contactEmail" name="contactEmail" required placeholder="   e.g. jane.doe@email.com" class="border rounded w-full p-2">
+            <label for="contactEmail" class="block font-semibold">Email <span class="text-red-500">*</span></label>
+            <input type="email" id="contactEmail" name="contactEmail" required placeholder="e.g. jane.doe@email.com" class="border rounded w-full p-2">
             <p class="text-red-500 text-sm hidden" id="contactEmailError">Valid email is required.</p>
           </div>
 
           <!-- Contact Phone -->
           <div>
             <label for="contactPhone" class="block font-semibold">Phone (optional)</label>
-            <input type="text" id="contactPhone" name="contactPhone" placeholder="   e.g. (787) 123-4567" class="border rounded w-full p-2">
+            <input type="text" id="contactPhone" name="contactPhone" placeholder="e.g. (787) 123-4567" class="border rounded w-full p-2">
           </div>
 
           <!-- Additional Comments -->
           <div>
             <label for="comments" class="block font-semibold">Additional Comments</label>
-            <textarea id="comments" name="comments" placeholder="  Any extra details..." class="border rounded w-full p-2"></textarea>
+            <textarea id="comments" name="comments" placeholder="Any extra details..." class="border rounded w-full p-2"></textarea>
           </div>
 
-          <!-- Dropzone for Photo Upload -->
+          <!-- Dropzone -->
           <div>
             <label class="block font-semibold mb-1">Upload Photo(s)</label>
             <div id="dropzone" class="dropzone border-2 border-dashed border-gray-300 rounded p-4"></div>
-            <!-- Hidden input to store Cloudinary image URLs -->
             <input type="hidden" id="uploadedImages" name="uploadedImages">
           </div>
 
-          <!-- Submit Button -->
+          <!-- Submit -->
           <div>
             <button id="submitBtn" type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">Submit</button>
           </div>
         </form>
       </section>
     </main>
-    
-    <!-- Footer (Same as index.html) -->
+
+    <!-- Footer -->
     <footer>
       <div class="footer-columns">
         <div class="footer-column">
@@ -144,234 +134,12 @@
           <p>Mayagüez, PR 00681</p>
         </div>
       </div>
-      <p class="footer-copyright">
-        &copy; 2025 UPRM Lost and Found. All rights reserved.
-      </p>
+      <p class="text-center text-sm mt-4">&copy; 2025 UPRM Lost and Found. All rights reserved.</p>
     </footer>
   </div>
 
-  <!-- Dropzone JS -->
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
-  <script>
-    /***************************************
-     * Dropzone.js Configuration
-     ***************************************/
-    Dropzone.autoDiscover = false;
-    const myDropzone = new Dropzone("#dropzone", {
-      url: "https://api.cloudinary.com/v1_1/dj025epmx/image/upload",  // Replace with your Cloudinary cloud name
-      autoProcessQueue: false,
-      addRemoveLinks: true,
-      parallelUploads: 1,
-      maxFiles: 5,
-      acceptedFiles: "image/*",
-      init: function() {
-        const dz = this;
-        dz.on("addedfile", function(file) {
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "founditem_upload");  // Replace with your unsigned upload preset
-
-          fetch("https://api.cloudinary.com/v1_1/dj025epmx/image/upload", {
-            method: "POST",
-            body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.secure_url) {
-              addUploadedImageURL(data.secure_url);
-              dz.emit("success", file, data.secure_url);
-              dz.emit("complete", file);
-            } else {
-              dz.emit("error", file, "Upload failed");
-            }
-          })
-          .catch(err => {
-            console.error("Cloudinary Upload Error:", err);
-            dz.emit("error", file, "Upload failed");
-          });
-        });
-      }
-    });
-
-    // Store Cloudinary URLs in a hidden input for form submission
-    function addUploadedImageURL(url) {
-      const hiddenInput = document.getElementById("uploadedImages");
-      let currentVal = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
-      currentVal.push(url);
-      hiddenInput.value = JSON.stringify(currentVal);
-    }
-
-    /***************************************
-     * Real-Time Validation Configuration
-     ***************************************/
-    const form = document.getElementById("foundItemForm");
-    const requiredFields = [
-      { id: "itemName", errorId: "itemNameError" },
-      { id: "description", errorId: "descriptionError" },
-      { id: "foundLocation", errorId: "foundLocationError" },
-      { id: "contactName", errorId: "contactNameError" },
-      { id: "contactEmail", errorId: "contactEmailError" },
-    ];
-/***************************************
-* Real-Time Required Fields Check
-***************************************/
-
-// Submit button element
-const submitBtn = document.getElementById("submitBtn");
-
-// Function that validates if the name contains only letters and spaces
-function isNameValid(name) {
-  return /^[A-Za-z\s]+$/.test(name.trim());
-}
-
-// Function that checks if all required fields are filled out and valid
-function checkFormCompletion() {
-  const isFormValid = requiredFields.every(field => {
-    const inputEl = document.getElementById(field.id);
-    return inputEl.checkValidity();
-  });
-
-  // Enable or disable the submit button based on form validity
-  submitBtn.disabled = !isFormValid;
-  submitBtn.classList.toggle("opacity-50", !isFormValid);
-  submitBtn.classList.toggle("cursor-not-allowed", !isFormValid);
-}
-
-// Real-time validation for all required fields
-requiredFields.forEach(field => {
-  const inputEl = document.getElementById(field.id);
-  const errorEl = document.getElementById(field.errorId);
-
-  inputEl.addEventListener("input", () => {
-    let isValid = inputEl.checkValidity();
-
-    // Special validation for contactName
-    if (field.id === "contactName") {
-      const nameValue = inputEl.value.trim();
-      if (nameValue === "") {
-        errorEl.textContent = "Your name is required.";
-        isValid = false;
-      } else if (!isNameValid(nameValue)) {
-        errorEl.textContent = "Only letters and spaces allowed.";
-        isValid = false;
-      } else {
-        errorEl.textContent = "";
-        isValid = true;
-      }
-    }
-
-    // Show or hide error based on validity
-    if (!isValid) {
-      inputEl.classList.add("border-red-500");
-      errorEl.classList.remove("hidden");
-    } else {
-      inputEl.classList.remove("border-red-500");
-      errorEl.classList.add("hidden");
-    }
-
-    checkFormCompletion();
-  });
-});
-
-// Initial check on page load (in case of autofill)
-window.addEventListener("DOMContentLoaded", checkFormCompletion);
-
-/***************************************
-* Hover: Highlight Missing Fields
-***************************************/
-
-// Highlight missing fields when hovering over the submit button
-submitBtn.addEventListener("mouseenter", () => {
-  let isFormValid = true;
-
-  requiredFields.forEach(field => {
-    const inputEl = document.getElementById(field.id);
-    const errorEl = document.getElementById(field.errorId);
-
-    let isValid = inputEl.checkValidity();
-
-    // Special case for contactName
-    if (field.id === "contactName") {
-      const nameValue = inputEl.value.trim();
-      if (nameValue === "") {
-        errorEl.textContent = "Your name is required.";
-        isValid = false;
-      } else if (!isNameValid(nameValue)) {
-        errorEl.textContent = "Only letters and spaces allowed.";
-        isValid = false;
-      } else {
-        errorEl.textContent = "";
-        isValid = true;
-      }
-    }
-
-    if (!isValid) {
-      inputEl.classList.add("border-red-500");
-      errorEl.classList.remove("hidden");
-      isFormValid = false;
-    } else {
-      inputEl.classList.remove("border-red-500");
-      errorEl.classList.add("hidden");
-    }
-  });
-
-  submitBtn.classList.toggle("cursor-not-allowed", !isFormValid);
-});
-
-    /***************************************
-     * AJAX Form Submission
-     ***************************************/
-    const alertSuccess = document.getElementById("alertSuccess");
-    const alertError = document.getElementById("alertError");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      let allValid = true;
-      requiredFields.forEach(field => {
-        const inputEl = document.getElementById(field.id);
-        const errorEl = document.getElementById(field.errorId);
-        if (!inputEl.checkValidity()) {
-          inputEl.classList.add("border-red-500");
-          errorEl.classList.remove("hidden");
-          allValid = false;
-        }
-      });
-      if (!allValid) return;
-
-      const formData = {
-        itemName: document.getElementById("itemName").value,
-        description: document.getElementById("description").value,
-        foundLocation: document.getElementById("foundLocation").value,
-        contactName: document.getElementById("contactName").value,
-        contactEmail: document.getElementById("contactEmail").value,
-        contactPhone: document.getElementById("contactPhone").value,
-        comments: document.getElementById("comments").value,
-        images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
-      };
-
-      fetch("http://127.0.0.1:5500/website/lostitem.html", {  // Replace with your actual server endpoint
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then(data => {
-        alertSuccess.classList.remove("hidden");
-        alertError.classList.add("hidden");
-        form.reset();
-        myDropzone.removeAllFiles(true);
-        document.getElementById("uploadedImages").value = "[]";
-      })
-      .catch(error => {
-        console.error("Submission error:", error);
-        alertError.classList.remove("hidden");
-        alertSuccess.classList.add("hidden");
-      });
-    });
-  </script>
+  <script src="jsfiles/form-validation-and-dropzone.js"></script>
 </body>
 </html>
