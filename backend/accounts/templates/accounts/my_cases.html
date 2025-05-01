@@ -5,25 +5,85 @@
 
 {% block title %}My Cases{% endblock %}
 
+
+
+
+
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
 {% endblock %}
 
 {% block content %}
 
-  <h2>My Reported Items</h2>
+  <p>Your Email: {{ user.U_Email }}</p> <h2>My Reported Items</h2>
+
+  <h3>Lost Items</h3>
   {% if lost_items %}
     <ul>
       {% for item in lost_items %}
-        <li>
-          <strong>Description:</strong> {{ item.L_Description }}<br>
-          <strong>Date:</strong> {{ item.L_PublishDate }}<br>
-          <strong>Info:</strong> {{ item.L_information }}
+        <li class= 'display: flex-container; align-items: flex-start; margin-bottom: 10px;'>
+          <div class="flex-grow: 1; margin-right: 10px;">
+            <strong>Description:</strong> {{ item.L_Description }}<br>
+            <strong>Date:</strong> {{ item.L_PublishDate }}<br>
+            <strong>Place Lost:</strong> {{ item.L_Location }}<br>
+            <strong>Info:</strong> {{ item.F_information|default:"Not specified"  }}<br>
+
+            {% if item.L_Photo %}
+              <img src="{% url 'lost_item_image' item_id=item.L_ID %}" alt="Lost Item Photo" style="max-width: 100px; height: auto">
+            {% else %}
+              <p>No photo available.</p>
+            {% endif %}
+          </div>
+            <form method="post" action="{% url 'delete_lost_item' item_id=item.L_ID %}">
+              {% csrf_token %}
+              <button type="submit" style="background-color: #f44336; color: white; border: none; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; cursor: pointer; border-radius: 4px;">Delete</button>
+            </form>
+<!--            {% if item.L_Photo %}-->
+<!--              <img src="{% url 'lost_item_image' item_id=item.L_ID %}" alt="Lost Item Photo" style="max-width: 100px; height: auto">-->
+<!--            {% else %}-->
+<!--              <p>No photo available.</p>-->
+<!--            {% endif %}-->
 
         </li>
       {% endfor %}
     </ul>
   {% else %}
     <p>You haven't reported any lost items yet.</p>
+  {% endif %}
+
+
+  <h3>Found Items</h3>
+  {% if found_items %}
+    <ul>
+      {% for item in found_items %}
+        <li class= 'display: flex-container; align-items: flex-start; margin-bottom: 10px;'>
+          <div class="flex-grow: 1; margin-right: 10px;">
+            <strong>Description:</strong> {{ item.F_Description }}<br>
+            <strong>Date Found:</strong> {{ item.F_PublishDate }}<br>
+            <strong>Place Found:</strong> {{ item.F_PlaceFound }}<br>
+            <strong>Info:</strong> {{ item.F_AdditionalDetails|default:"None" }}<br>
+
+            {% if item.F_Photo %}
+              <img src="{% url 'found_item_image' item_id=item.F_ID %}" alt="Found Item Photo" style="max-width: 100px; height: auto">
+            {% else %}
+              <p>No photo available.</p>
+            {% endif %}
+
+          </div>
+          <form method="post" action="{% url 'delete_found_item' item_id=item.F_ID %}">
+              {% csrf_token %}
+              <button type="submit" style="background-color: #f44336; color: white; border: none; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; cursor: pointer; border-radius: 4px;">Delete</button>
+            </form>
+<!--          {% if item.F_Photo %}-->
+<!--            <img src="{% url 'found_item_image' item_id=item.F_ID %}" alt="Found Item Photo" style="max-width: 100px; height: auto";>-->
+<!--          {% else %}-->
+<!--            <p>No photo available.</p>-->
+<!--          {% endif %}-->
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't submitted any found items yet.</p>
   {% endif %}
 {% endblock %}

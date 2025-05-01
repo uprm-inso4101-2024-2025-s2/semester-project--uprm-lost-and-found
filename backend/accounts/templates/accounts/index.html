@@ -4,6 +4,9 @@
 {% block title %}Home - UPRM Lost and Found{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
+
+
 <main>
   <!-- About Us and Our Mission Sections -->
   <section id="about-mission">
@@ -15,61 +18,60 @@
       <h2>Our Mission</h2>
       <p>At UPRM Lost and Found, our mission is to foster a sense of community and responsibility among students by providing a reliable and user-friendly platform for reporting and claiming lost items. We aim to reduce the stress and inconvenience of losing personal belongings by creating a centralized system where students can easily connect with those who have found their items. Through this initiative, we strive to promote honesty, cooperation, and mutual support within our campus community, ensuring that lost goods are returned to their rightful owners as quickly and efficiently as possible.</p>
     </div>
-  </section>
+  </section >
 
   <!-- Recently Lost Section -->
-  <section id="recently-lost">
-    <h2>Recently Lost</h2>
-    <div class="photo-grid">
-      <div class="photo-item">
-        <img src="{% static 'images/blackBackpack.jpg' %}" alt="Lost Item 1">
-        <p>Black backpack lost near the library.</p>
+
+  <section >
+    <h2>Recently Reported Items</h2>
+    <div class="two-column-grid">
+      <div class="lost-items-column">
+        <h3>Recently Lost</h3>
+        {% if lost_items %}
+          <ul>
+            {% for item in lost_items %}
+              <li>
+                <strong>Item:</strong> {{ item.L_Description }}<br>
+                <strong>Lost On:</strong> {{ item.L_PublishDate }}<br>
+                <strong>Location:</strong> {{ item.L_Location }}
+                <strong>Contact Email:</strong> {{ item.L_Email }}<br>
+                {% if item.L_Photo %}
+                  <img src="{% url 'lost_item_image' item_id=item.L_ID %}" alt="Lost Item Photo" style="max-width: 80px; height: auto; vertical-align: middle;">
+                {% else %}
+                  <p>(No photo)</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No recently lost items reported.</p>
+        {% endif %}
       </div>
-      <div class="photo-item">
-        <img src="{% static 'images/blueBottle.jpg' %}" alt="Lost Item 2">
-        <p>Blue water bottle lost in the cafeteria.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/blackSunglasses.png' %}" alt="Lost Item 3">
-        <p>Pair of sunglasses lost at the gym.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/redNotebook.jpg' %}" alt="Lost Item 4">
-        <p>Red notebook lost in the engineering building.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/laptopCharger.jpg' %}" alt="Lost Item 5">
-        <p>Silver laptop charger lost in the computer lab.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/greenUmbrella.jpg' %}" alt="Lost Item 6">
-        <p>Green umbrella lost near the bus stop.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/blackWallet.jpg' %}" alt="Lost Item 7">
-        <p>Black wallet lost in the student center.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/whiteHoodie.jpg' %}" alt="Lost Item 8">
-        <p>White hoodie lost at the basketball court.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/goldWatch.jpg' %}" alt="Lost Item 9">
-        <p>Gold watch lost in the chemistry lab.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/pinkHeadphones.png' %}" alt="Lost Item 10">
-        <p>Pink headphones lost in the library.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/brownJacket.jpg' %}" alt="Lost Item 11">
-        <p>Brown leather jacket lost near the cafeteria.</p>
-      </div>
-      <div class="photo-item">
-        <img src="{% static 'images/blueCalculator.jpg' %}" alt="Lost Item 12">
-        <p>Blue calculator lost in the math building.</p>
+      <div class="found-items-column">
+        <h3>Recently Found</h3>
+        {% if found_items %}
+          <ul>
+            {% for item in found_items %}
+              <li>
+                <strong>Item:</strong> {{ item.F_Description }}<br>
+                <strong>Found On:</strong> {{ item.F_PublishDate }}<br>
+                <strong>Location:</strong> {{ item.F_PlaceFound }}
+                <strong>Contact Email:</strong> {{ item.F_Email }}<br>
+                {% if item.F_Photo %}
+                  <img src="{% url 'found_item_image' item_id=item.F_ID %}" alt="Found Item Photo" style="max-width: 80px; height: auto; vertical-align: middle;">
+                {% else %}
+                  <p>(No photo)</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No recently found items reported.</p>
+        {% endif %}
       </div>
     </div>
   </section>
+
+
 </main>
 {% endblock %}

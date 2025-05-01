@@ -1,9 +1,16 @@
+from contextlib import nullcontext
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+
+# from .models import Location
 from .models import LostItem, User
 from .models import FoundItem, User
 from datetime import datetime
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 import json
 import requests
 
@@ -32,7 +39,13 @@ def login_form(request):
     return render(request, 'accounts/login.html')
 
 def homepage(request):
-    return render(request, 'accounts/index.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # redirect to login if user not logged in
+    user = get_object_or_404(User, U_ID=user_id)
+    lost_items = LostItem.objects.filter(U_ID=user_id).order_by('-L_PublishDate')
+    found_items = FoundItem.objects.filter(U_ID=user_id).order_by('-F_PublishDate')
+    return render(request, 'accounts/index.html', {'lost_items': lost_items, 'found_items': found_items})
 
 def found_item_page(request):
     return render(request, 'accounts/founditem.html')
@@ -103,9 +116,11 @@ def submit_lost_item(request):
             LostItem.objects.create(
                 L_Description=description,
                 L_PublishDate=date_now,
-                L_information=l_info,
+                L_information=comments,
+                L_Location=location,
                 U_ID=uid,
-                L_Photo=image_data
+                L_Photo=image_data,
+                L_Email=email,
             )
 
             return JsonResponse({'message': 'Lost item submitted successfully.'}, status=201)
@@ -116,10 +131,10 @@ def submit_lost_item(request):
 
 
 
-
 @csrf_exempt
 def submit_found_item(request):
     if request.method == 'POST':
+        print(f"Request Body: {request.body.decode('utf-8')}")
         try:
             data = json.loads(request.body)
             description = data.get('description')
@@ -131,8 +146,10 @@ def submit_found_item(request):
             images = data.get('images', [])
 
             # Build info
-            l_info = f"{location} - {comments}"
+            f_info = f"{location} - {comments}"
             date_now = datetime.now().strftime("%Y-%m-%d")
+            if not location:
+                return JsonResponse({'error': 'Please specify where the item was found.'}, status=400)
 
             # Get user ID
             try:
@@ -141,6 +158,13 @@ def submit_found_item(request):
             except User.DoesNotExist:
                 return JsonResponse({'error': 'Email not registered.'}, status=400)
 
+
+            # Get loc for PID
+            # try:
+            #     location = Location.objects.get(P_Name=location)
+            #     pid = location.P_ID
+            # except Location.DoesNotExist:
+            #     return JsonResponse({'error': f'Location "{location}" does not exist.'}, status=400)
             # Fetch image from Cloudinary
             image_data = None
             if images:
@@ -156,6 +180,8 @@ def submit_found_item(request):
                 F_AdditionalDetails=additional_details,
                 F_Photo=image_data,
                 U_ID=uid,
+                F_Email=email,
+
             )
 
             return JsonResponse({'message': 'Found item submitted successfully.'}, status=201)
@@ -170,11 +196,43 @@ def my_cases_page(request):
     if not user_id:
         return redirect('login')  # redirect to login if user not logged in
 
+    user = get_object_or_404(User, U_ID=user_id)
     lost_items = LostItem.objects.filter(U_ID=user_id).order_by('-L_PublishDate')
-    return render(request, 'accounts/my_cases.html', {'lost_items': lost_items})
+    found_items = FoundItem.objects.filter(U_ID=user_id).order_by('-F_PublishDate')
+    return render(request, 'accounts/my_cases.html', { 'user': user, 'lost_items': lost_items, 'found_items': found_items})
 
 
 
+@csrf_exempt
 def logout_view(request):
     request.session.flush()  # Clear all session data
     return redirect('login')
+
+@csrf_exempt
+def serve_lost_item_image(request, item_id):
+    lost_item = get_object_or_404(LostItem, L_ID=item_id)
+    if lost_item.L_Photo:
+        return HttpResponse(lost_item.L_Photo, content_type='media/lost_items_photos')
+    else:
+
+        return HttpResponse(status=204)
+
+def serve_found_item_image(request, item_id):
+    found_item = get_object_or_404(FoundItem, F_ID=item_id)
+    if found_item.F_Photo:
+        return HttpResponse(found_item.F_Photo, content_type='media/lost_items_photos')
+    else:
+        return HttpResponse(status=204)
+
+
+@require_POST
+def delete_lost_item(request, item_id):
+    lost_item = get_object_or_404(LostItem, L_ID=item_id, U_ID=request.session.get('user_id'))
+    lost_item.delete()
+    return redirect('my_cases')
+
+@require_POST
+def delete_found_item(request, item_id):
+    found_item = get_object_or_404(FoundItem, F_ID=item_id, U_ID=request.session.get('user_id'))
+    found_item.delete()
+    return redirect('my_cases')

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="0d1734cf-8f42-4df9-8016-a545538c27a7">
-      <driver-ref>mysql_aurora.aws_wrapper</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>software.amazon.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:aws-wrapper:mysql://localhost:3306?allowPublicKeyRetrieval=true</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="@localhost [2]" uuid="530d582e-3b63-49ec-aeb4-21877345249e">
+    <data-source source="LOCAL" name="@localhost" uuid="371e2667-d0c9-45a4-933c-1a241adcd5ba">
       <driver-ref>mysql_aurora.aws_wrapper</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>software.amazon.jdbc.Driver</jdbc-driver>

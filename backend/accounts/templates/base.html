@@ -84,6 +84,51 @@ nav ul li a:hover, .dropbtn:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+  #recently-reported {
+    margin-top: 20px;
+  }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .lost-items-column, .found-items-column {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .lost-items-column h3, .found-items-column h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .lost-items-column ul, .found-items-column ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .lost-items-column li, .found-items-column li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lost-items-column li:last-child, .found-items-column li:last-child {
+    border-bottom: none;
+  }
+
+  .lost-items-column li img, .found-items-column li img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 3px;
+  }
 </style>
 
 
