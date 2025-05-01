@@ -21,29 +21,25 @@
         </ul>
       </nav>
     </header>
-    
+
     <main>
-      <!-- About Us and Our Mission Sections -->
       <section id="about-mission">
         <div id="about" class="block">
           <h2>About Us</h2>
-          <p>Welcome to the UPRM Lost and Found, a student-driven initiative designed to help our campus community reunite with lost items. Created by students for students, our platform provides a simple and efficient way to report lost or found items on campus. Whether you've misplaced your keys, found a forgotten backpack, or are searching for a lost phone, our website is here to help. Together, we can make our campus a more connected and caring place by ensuring lost goods find their way back to their rightful owners.</p>
+          <p>Welcome to the UPRM Lost and Found...</p>
         </div>
         <div id="mission" class="block">
           <h2>Our Mission</h2>
-          <p>At UPRM Lost and Found, our mission is to foster a sense of community and responsibility among students by providing a reliable and user-friendly platform for reporting and claiming lost items. We aim to reduce the stress and inconvenience of losing personal belongings by creating a centralized system where students can easily connect with those who have found their items. Through this initiative, we strive to promote honesty, cooperation, and mutual support within our campus community, ensuring that lost goods are returned to their rightful owners as quickly and efficiently as possible.</p>
+          <p>At UPRM Lost and Found...</p>
         </div>
       </section>
-      
-      <!-- Recently Lost Section -->
+
       <section id="recently-lost">
         <h2>Recently Lost</h2>
-        <div class="photo-grid" id="lost-items-container">
-          <!-- Dynamic lost items will load here -->
-        </div>
+        <div class="photo-grid" id="lost-items-container"></div>
       </section>
     </main>
-    
+
     <footer>
       <div class="footer-columns">
         <div class="footer-column">
@@ -69,19 +65,28 @@
     </footer>
   </div>
 
-  <!-- MODAL FOR ITEM DETAILS -->
   <div id="itemModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative">
       <button id="closeModal" class="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
-      <h3 id="modalTitle" class="text-lg font-bold mb-2">Item Title</h3>
+      <input id="editTitle" class="text-lg font-bold mb-2 w-full border rounded px-2 py-1 hidden">
+      <h3 id="modalTitle" class="text-lg font-bold mb-2"></h3>
       <img id="modalImage" src="" alt="Item Image" class="w-full h-48 object-cover mb-4 rounded">
+      <textarea id="editInfo" class="w-full border rounded px-2 py-1 text-sm hidden"></textarea>
       <p id="modalInfo" class="text-sm text-gray-700 mb-2"></p>
       <p id="modalDate" class="text-xs text-gray-500 mb-4"></p>
-      <button id="claimBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Claim Item</button>
+      <div class="flex justify-between mt-4">
+        <button id="claimBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Claim Item</button>
+        <div class="space-x-2">
+          <button id="editBtn" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Edit</button>
+          <button id="deleteBtn" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
+    let currentItem = null;
+
     window.addEventListener("DOMContentLoaded", () => {
       fetch("http://localhost:8000/api/lost-items/")
         .then(res => res.json())
@@ -110,30 +115,71 @@
             div.appendChild(btn);
             container.appendChild(div);
           });
-        })
-        .catch(err => {
-          console.error("Error fetching lost items:", err);
-          document.getElementById("lost-items-container").innerHTML =
-            "<p style='color:red;'>Error loading lost items. Please try again later.</p>";
         });
     });
 
     function showModal(item) {
+      currentItem = item;
+      window.selectedItemId = item.id;
+
       document.getElementById("modalTitle").textContent = item.description;
       document.getElementById("modalImage").src = item.photo_urls[0] || "images/placeholder.jpg";
-      document.getElementById("modalInfo").textContent = "Details: " + (item.information || "No additional info.");
+      document.getElementById("modalInfo").textContent = item.information;
       document.getElementById("modalDate").textContent = "Published: " + item.publish_date;
-      document.getElementById("itemModal").classList.remove("hidden");
 
-      document.getElementById("claimBtn").onclick = () => {
-        alert("Thanks! We'll review your claim and get back to you.");
-        document.getElementById("itemModal").classList.add("hidden");
-      };
+      document.getElementById("editTitle").value = item.description;
+      document.getElementById("editInfo").value = item.information;
+
+      document.getElementById("itemModal").classList.remove("hidden");
     }
 
     document.getElementById("closeModal").addEventListener("click", () => {
       document.getElementById("itemModal").classList.add("hidden");
+      resetModal();
     });
+
+    document.getElementById("deleteBtn").onclick = () => {
+      const id = window.selectedItemId;
+      fetch(`http://localhost:8000/api/lost-items/${id}`, { method: "DELETE" })
+        .then(() => location.reload());
+    };
+
+    document.getElementById("editBtn").onclick = () => {
+      const title = document.getElementById("modalTitle");
+      const info = document.getElementById("modalInfo");
+      const editTitle = document.getElementById("editTitle");
+      const editInfo = document.getElementById("editInfo");
+
+      if (editTitle.classList.contains("hidden")) {
+        title.classList.add("hidden");
+        info.classList.add("hidden");
+        editTitle.classList.remove("hidden");
+        editInfo.classList.remove("hidden");
+        document.getElementById("editBtn").textContent = "Save Changes";
+      } else {
+        const updated = {
+          description: editTitle.value,
+          information: editInfo.value,
+          images: currentItem.photo_urls,
+          publish_date: currentItem.publish_date
+        };
+
+        fetch(`http://localhost:8000/api/lost-items/${currentItem.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated)
+        })
+        .then(() => location.reload());
+      }
+    };
+
+    function resetModal() {
+      document.getElementById("modalTitle").classList.remove("hidden");
+      document.getElementById("modalInfo").classList.remove("hidden");
+      document.getElementById("editTitle").classList.add("hidden");
+      document.getElementById("editInfo").classList.add("hidden");
+      document.getElementById("editBtn").textContent = "Edit";
+    }
   </script>
 </body>
 </html>

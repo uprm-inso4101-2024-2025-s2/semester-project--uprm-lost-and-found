@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Body
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from uuid import uuid4
@@ -11,6 +11,7 @@ router = APIRouter()
 
 # ────────────────────────────────────────
 # CLASS: LostItemsHandler
+
 class LostItemsHandler:
     def __init__(self):
         self.database = Database()
@@ -57,6 +58,8 @@ class LostItemsHandler:
                 print("Database has no such item: " + id)
             return item
 
+# ────────────────────────────────────────
+# API Endpoint: Submit Lost Item
 @router.post("/lost-items/")
 def submit_lost_item(data: dict, db: Session = Depends(get_db)):
     try:
@@ -79,20 +82,43 @@ def submit_lost_item(data: dict, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
+# ────────────────────────────────────────
+# API Endpoint: List All Lost Items
 @router.get("/lost-items/")
-def get_lost_items(db: Session = Depends(get_db)):
-    try:
-        items = db.query(LostItem).all()
-        return [
-            {
-                "id": item.id,
-                "description": item.l_description,
-                "publish_date": item.l_publishdate,
-                "photo_urls": item.l_photo.split(",") if item.l_photo else [],
-                "information": item.l_information
-            }
-            for item in items
-        ]
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+def list_lost_items(db: Session = Depends(get_db)):
+    items = db.query(LostItem).all()
+    return [
+        {
+            "id": i.id,
+            "description": i.l_description,
+            "publish_date": i.l_publishdate,
+            "photo_urls": i.l_photo.split(",") if i.l_photo else [],
+            "information": i.l_information
+        }
+        for i in items
+    ]
+
+# ────────────────────────────────────────
+# API Endpoint: Delete Lost Item
+@router.delete("/lost-items/{item_id}")
+def delete_lost_item(item_id: str, db: Session = Depends(get_db)):
+    item = db.query(LostItem).filter(LostItem.id == item_id).first()
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    db.delete(item)
+    db.commit()
+    return {"message": "Item deleted successfully"}
+
+# ────────────────────────────────────────
+# API Endpoint: Update Lost Item
+@router.put("/lost-items/{item_id}")
+def update_lost_item(item_id: str, data: dict = Body(...), db: Session = Depends(get_db)):
+    item = db.query(LostItem).filter(LostItem.id == item_id).first()
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    item.l_description = data.get("description", item.l_description)
+    item.l_information = data.get("information", item.l_information)
+    item.l_photo = ",".join(data.get("images", item.l_photo.split(",")))
+    db.commit()
+    return {"message": "Item updated successfully"}
