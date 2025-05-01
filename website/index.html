@@ -39,7 +39,7 @@
       <section id="recently-lost">
         <h2>Recently Lost</h2>
         <div class="photo-grid" id="lost-items-container">
-          <!-- Dynamic content will be inserted here -->
+          <!-- Dynamic lost items will load here -->
         </div>
       </section>
     </main>
@@ -69,14 +69,25 @@
     </footer>
   </div>
 
-  <!-- Script to fetch and display lost items -->
+  <!-- MODAL FOR ITEM DETAILS -->
+  <div id="itemModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative">
+      <button id="closeModal" class="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+      <h3 id="modalTitle" class="text-lg font-bold mb-2">Item Title</h3>
+      <img id="modalImage" src="" alt="Item Image" class="w-full h-48 object-cover mb-4 rounded">
+      <p id="modalInfo" class="text-sm text-gray-700 mb-2"></p>
+      <p id="modalDate" class="text-xs text-gray-500 mb-4"></p>
+      <button id="claimBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Claim Item</button>
+    </div>
+  </div>
+
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       fetch("http://localhost:8000/api/lost-items/")
         .then(res => res.json())
         .then(items => {
           const container = document.getElementById("lost-items-container");
-          container.innerHTML = ""; // Clear fallback content
+          container.innerHTML = "";
 
           items.forEach(item => {
             const div = document.createElement("div");
@@ -89,16 +100,39 @@
             const desc = document.createElement("p");
             desc.textContent = item.description;
 
+            const btn = document.createElement("button");
+            btn.textContent = "View Details";
+            btn.className = "mt-2 px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700";
+            btn.onclick = () => showModal(item);
+
             div.appendChild(image);
             div.appendChild(desc);
+            div.appendChild(btn);
             container.appendChild(div);
           });
         })
         .catch(err => {
           console.error("Error fetching lost items:", err);
-          const container = document.getElementById("lost-items-container");
-          container.innerHTML = "<p style='color:red;'>Error loading lost items. Please try again later.</p>";
+          document.getElementById("lost-items-container").innerHTML =
+            "<p style='color:red;'>Error loading lost items. Please try again later.</p>";
         });
+    });
+
+    function showModal(item) {
+      document.getElementById("modalTitle").textContent = item.description;
+      document.getElementById("modalImage").src = item.photo_urls[0] || "images/placeholder.jpg";
+      document.getElementById("modalInfo").textContent = "Details: " + (item.information || "No additional info.");
+      document.getElementById("modalDate").textContent = "Published: " + item.publish_date;
+      document.getElementById("itemModal").classList.remove("hidden");
+
+      document.getElementById("claimBtn").onclick = () => {
+        alert("Thanks! We'll review your claim and get back to you.");
+        document.getElementById("itemModal").classList.add("hidden");
+      };
+    }
+
+    document.getElementById("closeModal").addEventListener("click", () => {
+      document.getElementById("itemModal").classList.add("hidden");
     });
   </script>
 </body>

@@ -11,7 +11,6 @@ router = APIRouter()
 
 # ────────────────────────────────────────
 # CLASS: LostItemsHandler
-# ────────────────────────────────────────
 class LostItemsHandler:
     def __init__(self):
         self.database = Database()
@@ -58,9 +57,6 @@ class LostItemsHandler:
                 print("Database has no such item: " + id)
             return item
 
-# ────────────────────────────────────────
-# API Endpoint: Submit Lost Item (POST) – Issue #153
-# ────────────────────────────────────────
 @router.post("/lost-items/")
 def submit_lost_item(data: dict, db: Session = Depends(get_db)):
     try:
@@ -84,9 +80,6 @@ def submit_lost_item(data: dict, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# ────────────────────────────────────────
-# API Endpoint: Get Lost Items (GET) – Issue #154
-# ────────────────────────────────────────
 @router.get("/lost-items/")
 def get_lost_items(db: Session = Depends(get_db)):
     try:
