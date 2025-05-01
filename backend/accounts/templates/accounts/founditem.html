@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Report Found Item{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'cssfiles/founditem.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Report a Found Item</h2>
+  <form id="foundItemForm">
+    <div class="form-group">
+      <label for="itemName">Item Name</label>
+      <input type="text" id="itemName" name="itemName" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="foundLocation">Where did you find it?</label>
+      <input type="text" id="foundLocation" name="foundLocation" required>
+    </div>
+    <div class="form-group">
+      <label for="contactName">Your Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+    </div>
+    <div class="form-group">
+      <label for="contactEmail">Your Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+    </div>
+    <div class="form-group">
+      <label for="comments">Additional Comments (optional)</label>
+      <textarea id="comments" name="comments" rows="2"></textarea>
+    </div>
+
+    <!-- ✅ Upload Photo -->
+    <div class="form-group">
+      <label class="block font-semibold mb-1">Upload Photo(s)</label>
+      <div id="dropzone" class="dropzone border-2 border-dashed border-gray-300 rounded p-4"></div>
+      <input type="hidden" id="uploadedImages" name="uploadedImages">
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Submit Report</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+<script>
+Dropzone.autoDiscover = false;
+const myDropzone = new Dropzone("#dropzone", {
+  url: "https://api.cloudinary.com/v1_1/dj025epmx/image/upload",
+  autoProcessQueue: false,
+  addRemoveLinks: true,
+  maxFiles: 3,
+  acceptedFiles: "image/*",
+  init: function () {
+    const dz = this;
+    dz.on("addedfile", function (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "founditem_upload");
+
+      fetch("https://api.cloudinary.com/v1_1/dj025epmx/image/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.secure_url) {
+            addUploadedImageURL(data.secure_url);
+            dz.emit("success", file, data.secure_url);
+            dz.emit("complete", file);
+          } else {
+            dz.emit("error", file, "Upload failed");
+          }
+        })
+        .catch((err) => {
+          console.error("Upload error:", err);
+          dz.emit("error", file, "Upload failed");
+        });
+    });
+  },
+});
+
+function addUploadedImageURL(url) {
+  const hiddenInput = document.getElementById("uploadedImages");
+  const current = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+  current.push(url);
+  hiddenInput.value = JSON.stringify(current);
+}
+const form = document.getElementById("foundItemForm");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = {
+    itemName: document.getElementById("itemName").value,
+    description: document.getElementById("description").value,
+    foundLocation: document.getElementById("foundLocation").value,
+    contactName: document.getElementById("contactName").value,
+    contactEmail: document.getElementById("contactEmail").value,
+    comments: document.getElementById("comments").value,
+    images: JSON.parse(document.getElementById("uploadedImages").value || "[]")
+  };
+
+  fetch("/accounts/found/submit/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert(data.message || data.error);
+      if (data.message) form.reset();
+    })
+    .catch((error) => {
+      alert("An error occurred: " + error);
+    });
+});
+</script>
+{% endblock %}

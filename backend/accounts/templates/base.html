@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}UPRM Lost and Found{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header>
+    <style>
+nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.dropbtn {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+nav ul li a:hover, .dropbtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: black;
+  min-width: 100px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+  #recently-reported {
+    margin-top: 20px;
+  }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .lost-items-column, .found-items-column {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .lost-items-column h3, .found-items-column h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .lost-items-column ul, .found-items-column ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .lost-items-column li, .found-items-column li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lost-items-column li:last-child, .found-items-column li:last-child {
+    border-bottom: none;
+  }
+
+  .lost-items-column li img, .found-items-column li img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 3px;
+  }
+</style>
+
+
+
+
+    <h1>UPRM Lost and Found</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'homepage' %}">Home</a></li>
+        <li><a href="{% url 'found' %}">Report Found Item</a></li>
+        <li><a href="{% url 'lost' %}">Report Lost Item</a></li>
+        <li><a href="{% url 'my_cases' %}">My Cases</a></li>
+        <li><a href="{% url 'signup_form' %}">Sign Up</a></li>
+        <li>
+  {% if request.session.user_name %}
+    <div class="dropdown">
+      <button class="dropbtn">{{ request.session.user_name }}</button>
+      <div class="dropdown-content">
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  {% else %}
+    <a href="{% url 'login' %}">Log In</a>
+  {% endif %}
+</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 UPRM Lost and Found. All rights reserved.</p>
+  </footer>
+</body>
+</html>

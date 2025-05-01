@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - UPRM Lost and Found{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cssfiles/styles.css' %}">
+
+
+<main>
+  <!-- About Us and Our Mission Sections -->
+  <section id="about-mission">
+    <div id="about" class="block">
+      <h2>About Us</h2>
+      <p>Welcome to the UPRM Lost and Found, a student-driven initiative designed to help our campus community reunite with lost items. Created by students for students, our platform provides a simple and efficient way to report lost or found items on campus. Whether you've misplaced your keys, found a forgotten backpack, or are searching for a lost phone, our website is here to help. Together, we can make our campus a more connected and caring place by ensuring lost goods find their way back to their rightful owners.</p>
+    </div>
+    <div id="mission" class="block">
+      <h2>Our Mission</h2>
+      <p>At UPRM Lost and Found, our mission is to foster a sense of community and responsibility among students by providing a reliable and user-friendly platform for reporting and claiming lost items. We aim to reduce the stress and inconvenience of losing personal belongings by creating a centralized system where students can easily connect with those who have found their items. Through this initiative, we strive to promote honesty, cooperation, and mutual support within our campus community, ensuring that lost goods are returned to their rightful owners as quickly and efficiently as possible.</p>
+    </div>
+  </section >
+
+  <!-- Recently Lost Section -->
+
+  <section >
+    <h2>Recently Reported Items</h2>
+    <div class="two-column-grid">
+      <div class="lost-items-column">
+        <h3>Recently Lost</h3>
+        {% if lost_items %}
+          <ul>
+            {% for item in lost_items %}
+              <li>
+                <strong>Item:</strong> {{ item.L_Description }}<br>
+                <strong>Lost On:</strong> {{ item.L_PublishDate }}<br>
+                <strong>Location:</strong> {{ item.L_Location }}
+                <strong>Contact Email:</strong> {{ item.L_Email }}<br>
+                {% if item.L_Photo %}
+                  <img src="{% url 'lost_item_image' item_id=item.L_ID %}" alt="Lost Item Photo" style="max-width: 80px; height: auto; vertical-align: middle;">
+                {% else %}
+                  <p>(No photo)</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No recently lost items reported.</p>
+        {% endif %}
+      </div>
+      <div class="found-items-column">
+        <h3>Recently Found</h3>
+        {% if found_items %}
+          <ul>
+            {% for item in found_items %}
+              <li>
+                <strong>Item:</strong> {{ item.F_Description }}<br>
+                <strong>Found On:</strong> {{ item.F_PublishDate }}<br>
+                <strong>Location:</strong> {{ item.F_PlaceFound }}
+                <strong>Contact Email:</strong> {{ item.F_Email }}<br>
+                {% if item.F_Photo %}
+                  <img src="{% url 'found_item_image' item_id=item.F_ID %}" alt="Found Item Photo" style="max-width: 80px; height: auto; vertical-align: middle;">
+                {% else %}
+                  <p>(No photo)</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No recently found items reported.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+</main>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'cssfiles/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Create Account</h2>
+  <form id="createAccountForm">
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" required>
+    </div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="occupation">Occupation</label>
+      <select id="occupation" name="occupation" required>
+        <option value="" disabled selected>Select your occupation</option>
+        <option value="student">Student</option>
+        <option value="administrative">Administrative</option>
+        <option value="faculty">Faculty</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <div class="error-message" id="errorMessage"></div>
+    <button type="submit">Create Account</button>
+    <div style="text-align: center; margin: 10px 0;">or</div>
+    <button type="button" onclick="window.location.href='/accounts/login/'">Log In</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('createAccountForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = {
+    fullName: document.getElementById('fullName').value,
+    username: document.getElementById('username').value,
+    email: document.getElementById('email').value,
+    occupation: document.getElementById('occupation').value,
+    password: document.getElementById('password').value,
+    confirmPassword: document.getElementById('confirmPassword').value
+  };
+  if (formData.password !== formData.confirmPassword) {
+    document.getElementById('errorMessage').textContent = 'Passwords do not match!';
+    return;
+  }
+  const response = await fetch('/accounts/signup/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+  if (response.ok) {
+    alert('Signup successful!');
+    window.location.href = '/accounts/login/';
+  } else {
+    const error = await response.json();
+    document.getElementById('errorMessage').textContent = error.error || 'Signup failed';
+  }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+U_Username,U_Fullname,U_Email,U_Password,U_Occupation,U_ProfilePhoto
+jsmith,John Smith,jsmith@example.com,password123,student,
+mbrown,Mary Brown,mbrown@example.com,adminpass,admin,
+kwhite,Kevin White,kwhite@example.com,staffpass,staff,
+adoe,Anna Doe,adoe@example.com,student2025,student,
+cgreen,Carol Green,dlee@example.com,admin2025,admin,
+dlee,David Lee,dlee@example.com,staff2025,staff,

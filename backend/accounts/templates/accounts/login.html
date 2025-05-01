@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Log In{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'cssfiles/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Login</h2>
+  <p id="login-message" style="margin-bottom: 10px;"></p>
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    </div>
+    <div class="form-group">
+      <button type="submit">Login</button>
+      <div style="text-align: center; margin: 10px 0;">or</div>
+      <button type="button" onclick="window.location.href='/accounts/signup/form/'" style="margin-top: 10px;">
+        Create Account
+      </button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('loginForm');
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('/accounts/login/check/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const result = await response.json();
+
+    let message = document.getElementById('login-message');
+    if (!message) {
+      message = document.createElement('p');
+      message.id = 'login-message';
+      document.querySelector('.form-container').prepend(message);
+    }
+
+    if (response.ok) {
+      message.style.color = 'green';
+      message.textContent = result.message;
+      setTimeout(() => {
+        window.location.href = result.redirect || '/';
+      }, 1000);
+    } else {
+      message.style.color = 'red';
+      message.textContent = result.error || 'Login failed';
+    }
+  });
+});
+</script>
+{% endblock %}
